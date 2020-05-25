@@ -21,7 +21,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode tide projectile org-ref neotree move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags golint go-rename gnu-elpa-keyring-update fzf flycheck-pyflakes flycheck-irony flycheck-elm flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide angular-snippets angular-mode all-the-icons-dired ag)))
+    (sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode tide projectile org-ref neotree move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags golint go-rename gnu-elpa-keyring-update fzf flycheck-pyflakes flycheck-irony flycheck-elm flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide all-the-icons-dired ag)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -70,6 +70,8 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (set-frame-font "DejaVu Sans Mono 13" nil t)
+
+(transient-mark-mode 1)
 
 ;;;;;;;;;;;
 ;; LOADS ;;
@@ -125,15 +127,6 @@
 ;; COMMANDS   ;;
 ;;;;;;;;;;;;;;;;
 
-(transient-mark-mode 1)
-(defun select-current-line ()
-  "Select the current line."
-  (interactive)
-  (end-of-line) ; move to end of line
-  (set-mark (line-beginning-position)))
-
-(global-set-key "\C-c\C-k" 'select-current-line)
-
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
@@ -143,7 +136,6 @@
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)))
 
-;; (global-set-key "\C-c\C-u" 'comment-or-uncomment-region-or-line)
 (global-set-key "\C-cu" 'comment-or-uncomment-region-or-line)
 
 (defun duplicate-line-or-region (&optional n)
@@ -198,9 +190,6 @@ With negative N, comment out original line and use the absolute value."
 
 ;; (desktop-save-mode 1)
 
-;; (setq google-this-keybind (kbd "s-/"))
-;; (google-this-mode 1)
-
 ;; It allows you to move the current line using M-up / M-down
 ;; if a region is marked, it will move the region instead.
 (require 'move-text)
@@ -253,10 +242,6 @@ With negative N, comment out original line and use the absolute value."
 (flx-ido-mode 1)
 (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
 ;; OR (setq flx-ido-use-faces nil)
-
-;; DIRED
-;; (require 'dired+)
-;; (setq dired-listing-switches "-aBhl  --group-directories-first")
 
 ;; NEOTREE
 (require 'all-the-icons)
@@ -439,24 +424,26 @@ With negative N, comment out original line and use the absolute value."
 ;; PYTHON     ;;
 ;;;;;;;;;;;;;;;;
 
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python3" . python-mode)
   :init
-  :config
   (add-hook 'python-mode-hook 'display-line-numbers-mode)
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'python-mode-hook 'elpy-mode)
-
+  (defun my-python-mode-hook ()
+    (setq-local company-backends '((elpy-company-backend company-jedi company-etags company-dabbrev-code company-yasnippet))))
+  (add-hook 'python-mode-hook 'my-python-mode-hook)
+  :config
   (use-package flycheck
     :ensure t
     :config
     (setq flycheck-python-pylint-executable "pylint3"))
-
-  (use-package company-jedi
-    :ensure t
-    :init
-    (add-to-list 'company-backends 'company-jedi))
   )
 
 ;;;;;;;;;;;;
@@ -486,22 +473,14 @@ With negative N, comment out original line and use the absolute value."
   (add-to-list 'exec-path "/home/darko/go/bin")
   (add-hook 'go-mode-hook 'flycheck-mode)
   (add-hook 'go-mode-hook 'display-line-numbers-mode)
-  (add-hook 'go-mode-hook 'company-mode)
+  (add-to-list 'company-backends 'company-go)
   (add-hook 'before-save-hook 'gofmt-before-save) ; call Gofmt before saving
-  :bind
-  (("M-." . godef-jump) ; Godef jump key binding
-   ("M-*" . pop-tag-mark)
-   ("C-c C-r" . go-remove-unused-imports)
-   ("C-c i" . go-goto-imports)
-   ("C-c C-f" . gofmt)
-   ("C-c k" . godoc-at-point))  
+  :bind (:map go-mode-map
+              ("M-." . godef-jump)
+              ("C-c k" . godoc-at-point))
   :config
   (setq gofmt-command "goimports") ; use goimports instead of go-fmt
   (setq tab-width 4)
-  
-  (use-package company-go
-  :init
-  (add-to-list 'company-backends 'company-go))
   )
 
 ;;;;;;;;;;;;;;;;
@@ -630,28 +609,21 @@ With negative N, comment out original line and use the absolute value."
 ;; LUA-MODE ;;
 ;;;;;;;;;;;;;;
 
-(setq lua-indent-level 4)
-
-;; company-lua
-(require 'company-lua)
-(defun my-lua-mode-company-init ()
-  (setq-local company-backends '((company-lua
-                                  company-etags
-                                  company-dabbrev-code
-                                  company-yasnippet))))
-(add-hook 'lua-mode-hook #'my-lua-mode-company-init)
-
-(add-hook 'lua-mode-hook 'hs-minor-mode)
-(add-hook 'lua-mode-hook 'imenu-add-menubar-index)
-
-(add-hook 'lua-mode-hook 'flycheck-mode)
-
-(add-hook 'lua-mode-hook '(lambda ()
-                            (local-set-key "\C-x\C-e" 'lua-send-defun)
-                            (local-set-key "\C-c\C-l" 'lua-send-current-line)
-                            (local-set-key "\C-c\C-r" 'lua-send-region)
-                            (local-set-key "\C-c\C-b" 'lua-send-buffer)
-                            ))
+(use-package lua-mode
+  :init
+  (setq lua-indent-level 4)
+  (add-hook 'lua-mode-hook 'hs-minor-mode)
+  (add-hook 'lua-mode-hook 'imenu-add-menubar-index)
+  (add-hook 'lua-mode-hook 'flycheck-mode)
+  (defun my-lua-mode-hook ()
+    (setq-local company-backends '((company-lua company-etags company-dabbrev-code company-yasnippet))))
+  (add-hook 'lua-mode-hook 'my-lua-mode-hook)
+  :bind (:map lua-mode-map
+              ("C-x C-e" . lua-send-defun)
+              ("C-c C-l" . lua-send-current-line)
+              ("C-c C-r" . lua-send-region)
+              ("C-c C-b" . lua-send-buffer))
+  )
 
 ;;;;;;;;;;;;;;
 ;; ELM-MODE ;;
@@ -724,11 +696,11 @@ With negative N, comment out original line and use the absolute value."
   (setq org-latex-prefer-user-labels t)
   (setq org-latex-pdf-process '("texi2dvi -p -b -V %f"))
   :bind
-  (("C-c l" . org-store-link)
-  ("C-c a" . org-agenda)
-  ("C-c [" . helm-bibtex)
-  ("C-c c" . org-capture)
-  ("C-c C-t" . add-tag-to-org-mode-dict))
+  (("C-c c" . org-capture)
+   ("C-c a" . org-agenda)
+   ("C-c [" . helm-bibtex)
+   ("C-c l" . org-store-link)
+   ("C-c C-t" . add-tag-to-org-mode-dict))
   )
 
 ;;;;;;;;;;;;;;;;;;
@@ -776,7 +748,5 @@ With negative N, comment out original line and use the absolute value."
 (use-package sml-mode
   :init
   (add-hook 'sml-mode-hook 'display-line-numbers-mode)
-  :bind (:map sm)
-  :config
-  (local-set-key " " 'sml-electric-space)
+  :bind (:map sml-mode-map (" " . sml-electric-space))
   )
