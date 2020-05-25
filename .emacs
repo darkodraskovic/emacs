@@ -19,6 +19,9 @@
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(package-selected-packages
+   (quote
+    (sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode tide projectile org-ref neotree move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags golint go-rename gnu-elpa-keyring-update fzf flycheck-pyflakes flycheck-irony flycheck-elm flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide angular-snippets angular-mode all-the-icons-dired ag)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -54,10 +57,10 @@
 ;;;;;;;;;
 
 (setq custom-theme-directory "~/.emacs.d/themes")
+(blink-cursor-mode 0)
 
 (setq auto-save-default nil)
 (setq vc-follow-symlinks 2)
-(setq blink-cursor-mode nil)
 (setq comint-move-point-for-output t)
 (setq comint-scroll-to-bottom-on-input t)
 (setq compilation-scroll-output t)
@@ -92,8 +95,6 @@
 (setq split-height-threshold nil)
 (setq split-width-threshold 0)
 
-(setq buffer-move-stay-after-swap t)
-
 (setq scroll-conservatively 10)
 (setq scroll-margin 7)
 
@@ -105,8 +106,6 @@
 (global-set-key (kbd "M-i") 'imenu)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (global-set-key "\C-j" 'newline-and-indent)
-
-(global-set-key "\C-c\C-k" 'copy-line)
 
 ;;;;;;;;;;;;;;
 ;; PACKAGE  ;;
@@ -120,8 +119,7 @@
         ))
 (package-initialize)
 
-(eval-when-compile
-  (require 'use-package))
+(require 'use-package)
 
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;
@@ -171,13 +169,6 @@ With negative N, comment out original line and use the absolute value."
         (forward-char pos)))))
 
 (global-set-key [?\C-c ?d] 'duplicate-line-or-region)
-
-(defun copy-line (arg)
-  "Copy lines (as many as prefix argument) in the kill ring"
-  (interactive "p")
-  (kill-ring-save (line-beginning-position)
-                  (line-beginning-position (+ 1 arg)))
-  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
 ;;;;;;;;;;;;;;
 ;; MODES    ;;
@@ -282,45 +273,26 @@ With negative N, comment out original line and use the absolute value."
 (yas-reload-all)
 ;; (setq yas-snippet-dirs (append yas-snippet-dirs '("~/emacs.d/snippets")))
 
-
-;; AUTO-COMPLETE
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-
-;; (setq ac-dictionary-files nil)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict" )
-;; (add-to-list 'ac-dictionary-directories "~/Radovi/Org/Dict" )
-
-;; (global-display-line-numbers-mode 1)
-
-;; FLYMAKE
-;; (add-hook 'find-file-hook 'flymake-find-file-hook)
-
 ;; FLYCHECK
 (require 'flycheck)
-;;OR
-;; (req-package flycheck
-;;   :config
-;;   (progn
-;;     (global-flycheck-mode)))
 
 (setq flycheck-display-errors-function
       #'flycheck-display-error-messages-unless-error-list)
 
 ;; COMPANY
-(require 'company)
-(setq company-idle-delay 0.2)
-(setq company-minimum-prefix-length 0)
-;; (setq company-show-numbers t)
+(use-package company
+  :init
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (setq company-idle-delay 0.25)
+  (setq company-minimum-prefix-length 0)
+  ;; (setq company-show-numbers t)
+  )
+
 (company-quickhelp-mode)
 
 ;; HIPPIE
 (global-set-key "\M- " 'hippie-expand)
-;; completing the name of the file in the buffer. 
-;; (fset 'my-complete-file-name
-;;       (make-hippie-expand-function '(try-complete-file-name-partially
-;; 				     try-complete-file-name)))
-;; (global-set-key "\M-\\" 'my-complete-file-name)
 
 ;; EXPAND-REGION
 (require 'expand-region)
@@ -379,29 +351,6 @@ With negative N, comment out original line and use the absolute value."
 ;; PROG LANG  ;;
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;
-
-(defun my-ac-auto-t-hook ()
-  (auto-complete-mode)
-  (setq-local ac-auto-start 3))
-
-(defun my-ac-auto-nil-hook ()
-  (auto-complete-mode)
-  (setq-local ac-auto-start nil))
-  ;; (define-key ac-mode-map (kbd "M-/") 'auto-complete)
-
-(defun my-f5-compile-hook () (local-set-key [f5] 'compile))
-
-;;;;;;;;;;;;;;;;
-;; LISP       ;;
-;;;;;;;;;;;;;;;;
-
-(add-hook 'emacs-lisp-mode-hook 'my-ac-auto-t-hook)
-
-;;;;;;;;;;;;;;;;;;
-;; SHELL-SCRIPT ;;
-;;;;;;;;;;;;;;;;;;
-
-(add-hook 'sh-mode-hook 'my-ac-auto-t-hook)
 
 ;;;;;;;;;;;;;;;;
 ;; C++        ;;
@@ -463,12 +412,8 @@ With negative N, comment out original line and use the absolute value."
 ;; STANDARD HOOKS
 (add-hook 'c++-mode-hook 'flycheck-mode)
 (add-hook 'c++-mode-hook 'eldoc-mode)
-(add-hook 'c++-mode-hook 'company-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'display-line-numbers-mode)
-
-(add-hook 'c++-mode-hook 'my-f5-compile-hook)
-(add-hook 'c++-mode-hook 'my-ac-auto-nil-hook)
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
@@ -476,33 +421,19 @@ With negative N, comment out original line and use the absolute value."
 ;; CMAKE      ;;
 ;;;;;;;;;;;;;;;;
 
-;; (require 'rtags)
-;; (cmake-ide-setup)
-
 (require 'cmake-mode)
 (add-hook 'cmake-mode-hook 'flycheck-mode)
-(add-hook 'cmake-mode-hook 'company-mode)
 (add-hook 'cmake-mode-hook 'display-line-numbers-mode)
-(add-hook 'cmake-mode-hook 'my-ac-auto-nil-hook)
-;; (add-hook 'cmake-mode-hook 'my-ac-auto-t-hook)
 
 ;;;;;;;;;;;;;;;
 ;; GLSL mode ;;
 ;;;;;;;;;;;;;;;
 
-(use-package company-glsl
-  :config
-  (when (executable-find "glslangValidator")
-    (add-to-list 'company-backends 'company-glsl)))
-
-(add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.shader\\'" . glsl-mode))
-
-(add-hook 'glsl-mode-hook 'display-line-numbers-mode)
-
-(add-hook 'glsl-mode-hook 'my-ac-auto-t-hook)
-(add-hook 'glsl-mode-hook 'my-f5-compile-hook)
+(use-package glsl
+  :mode (("\\.vs\\'" . glsl-mode) ("\\.fs\\'" . glsl-mode) ("\\.shader\\'" . glsl-mode))
+  :init
+  (add-hook 'glsl-mode-hook 'display-line-numbers-mode)
+  )
 
 ;;;;;;;;;;;;;;;;
 ;; PYTHON     ;;
@@ -511,12 +442,11 @@ With negative N, comment out original line and use the absolute value."
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python3" . python-mode)
+  :init
   :config
   (add-hook 'python-mode-hook 'display-line-numbers-mode)
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'python-mode-hook 'elpy-mode)
-  (add-hook 'python-mode-hook 'company-mode)
-  ;; (add-hook 'python-mode-hook 'my-ac-auto-nil-hook)
 
   (use-package flycheck
     :ensure t
@@ -528,45 +458,6 @@ With negative N, comment out original line and use the absolute value."
     :init
     (add-to-list 'company-backends 'company-jedi))
   )
-
-;; (use-package python
-;;   :mode ("\\.py\\'" . python-mode)
-;;   :interpreter ("python3" . python-mode)
-;;   :config
-;;   (add-hook 'python-mode-hook 'my-ac-auto-nil-hook)
-;;   (add-hook 'python-mode-hook 'display-line-numbers-mode)
-;;   (add-hook 'python-mode-hook 'flycheck-mode)
-;;   (add-hook 'python-mode-hook 'pyvenv-mode)
-;;   (add-hook 'python-mode-hook 'anaconda-mode)
-;;   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-;;   (add-hook 'python-mode-hook 'company-mode)
-  
-;;   (use-package anaconda-mode
-;;     :ensure t
-;;     :bind ("C-c C-d" . anaconda-mode-show-doc)
-;;     :config
-;;     (setq python-shell-interpreter "ipython")
-;;     )
-
-;;   (use-package company-anaconda
-;;     :ensure t
-;;     :init
-;;     (add-to-list 'company-backends 'company-anaconda)
-;;     ;; (add-to-list 'company-backends '(company-anaconda :with company-capf))
-;;     )
-
-;;   (use-package flycheck
-;;     :ensure t
-;;     :init
-;;     (setq flycheck-python-pylint-executable "pylint3"))
-;;   )
-
-;; ;; ;; CONDA
-;; ;; (setq conda-env-home-directory (expand-file-name "~/anaconda3/"))
-;; ;; (require 'conda)
-;; ;; (conda-env-initialize-interactive-shells) ;; interactive shell support
-;; ;; (conda-env-initialize-eshell) ;; eshell support
-;; ;; (conda-env-autoactivate-mode t) ;; auto-activation
 
 ;;;;;;;;;;;;
 ;; GOLANG ;;
@@ -596,8 +487,7 @@ With negative N, comment out original line and use the absolute value."
   (add-hook 'go-mode-hook 'flycheck-mode)
   (add-hook 'go-mode-hook 'display-line-numbers-mode)
   (add-hook 'go-mode-hook 'company-mode)
-  (add-hook 'go-mode-hook 'my-ac-auto-nil-hook)
-  (add-hook 'before-save-hook 'gofmt-before-save) ; call Gofmt before saving  
+  (add-hook 'before-save-hook 'gofmt-before-save) ; call Gofmt before saving
   :bind
   (("M-." . godef-jump) ; Godef jump key binding
    ("M-*" . pop-tag-mark)
@@ -608,47 +498,11 @@ With negative N, comment out original line and use the absolute value."
   :config
   (setq gofmt-command "goimports") ; use goimports instead of go-fmt
   (setq tab-width 4)
-  (setq company-idle-delay 0.3)
   
   (use-package company-go
   :init
   (add-to-list 'company-backends 'company-go))
   )
-
-;;;;;;;;;;
-;; JAVA ;;
-;;;;;;;;;;
-(require 'processing-mode)
-
-(add-hook 'java-mode-hook 'my-ac-auto-nil-hook)
-
-(require 'eclim)
-(setq eclim-executable "/home/darko/.p2/pool/plugins/org.eclim_2.8.0/bin/eclim")
-(setq eclimd-executable "/home/darko/.p2/pool/plugins/org.eclim_2.8.0/bin/eclimd")
-(setq eclimd-default-workspace "/home/darko/eclipse-workspace")
-;; (setq eclimd-autostart t)
-
-;; ;; add the emacs-eclim source
-;; (require 'ac-emacs-eclim)
-;; (ac-emacs-eclim-config)
-
-(require 'company-emacs-eclim)
-(company-emacs-eclim-setup)
-(setq company-emacs-eclim-ignore-case t)
-
-(defun my-java-mode-hook ()
-  (eclim-mode t)
-  (company-mode t))
-(add-hook 'java-mode-hook 'my-java-mode-hook)
-
-(add-hook 'java-mode-hook (lambda ()
-                            (local-set-key [f5] 'eclim-run-class)
-                            (local-set-key "\M- " 'company-complete)
-                            ;; (local-set-key (kbd "C-c C-p d") 'processing-find-in-reference)
-                            (local-set-key (kbd "C-c k") 'eclim-java-browse-documentation-at-point)
-                            ;; (setq-local company-minimum-prefix-length 0)
-                            ;; (setq-local company-idle-delay .3)
-                            ))
 
 ;;;;;;;;;;;;;;;;
 ;; TYPESCRIPT ;;
@@ -704,10 +558,7 @@ With negative N, comment out original line and use the absolute value."
 (setq-default js-indent-level 2)
 (add-hook 'js-mode-hook 'js2-minor-mode)
 
-;; tide
 (add-hook 'js2-mode-hook #'setup-tide-mode)
-;; ac
-(add-hook 'js2-mode-hook 'my-ac-auto-nil-hook)
 
 ;; JS2-MODE
 (setq-default js2-highlight-level 3)
@@ -752,19 +603,7 @@ With negative N, comment out original line and use the absolute value."
 ;; (add-hook 'js2-mode-hook 'ac-js2-mode) ;; An attempt at context sensitive auto-completion for Javascript in Emacs using js2-mode's parser and Skewer-mode
 ;; (add-to-list 'company-backends 'ac-js2-company)
 
-;;;;;;;;;;
-;; HTML ;;
-;;;;;;;;;;
-
-(add-hook 'html-mode-hook 'my-ac-auto-t-hook)
-(add-hook 'nxml-mode-hook 'my-ac-auto-t-hook)
-
-;;;;;;;;;
-;; CSS ;;
-;;;;;;;;;
-
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
-(add-hook 'css-mode-hook 'my-ac-auto-t-hook)
 
 ;;;;;;;;;;;;;;
 ;; WEB-MODE ;;
@@ -777,8 +616,6 @@ With negative N, comment out original line and use the absolute value."
 (setq web-mode-engines-alist
       '(("go"    . "\\.gohtml\\'")))
 
-(add-hook 'web-mode-hook 'my-ac-auto-t-hook)
-
 (setq web-mode-markup-indent-offset 2)
 (setq web-mode-enable-current-element-highlight t)
 
@@ -788,7 +625,6 @@ With negative N, comment out original line and use the absolute value."
 ;;;;;;;;;;;;;;;;;;;;
 
 (require 'docker-compose-mode)
-(add-hook 'docker-compose-mode-hook 'my-ac-auto-t-hook)
 
 ;;;;;;;;;;;;;;
 ;; LUA-MODE ;;
@@ -804,25 +640,17 @@ With negative N, comment out original line and use the absolute value."
                                   company-dabbrev-code
                                   company-yasnippet))))
 (add-hook 'lua-mode-hook #'my-lua-mode-company-init)
-(add-hook 'lua-mode-hook 'company-mode)
 
 (add-hook 'lua-mode-hook 'hs-minor-mode)
 (add-hook 'lua-mode-hook 'imenu-add-menubar-index)
 
-;; (require 'flymake-lua)
-;; (add-hook 'lua-mode-hook 'flymake-lua-load)
-
-(add-hook 'lua-mode-hook 'my-ac-auto-nil-hook)
 (add-hook 'lua-mode-hook 'flycheck-mode)
 
 (add-hook 'lua-mode-hook '(lambda ()
-                            (local-set-key [f5] 'compile)
                             (local-set-key "\C-x\C-e" 'lua-send-defun)
                             (local-set-key "\C-c\C-l" 'lua-send-current-line)
                             (local-set-key "\C-c\C-r" 'lua-send-region)
                             (local-set-key "\C-c\C-b" 'lua-send-buffer)
-                            ;; (local-set-key "\M-g\M-n" 'flymake-goto-next-error)
-                            ;; (local-set-key "\M-g\M-p" 'flymake-goto-prev-error)
                             ))
 
 ;;;;;;;;;;;;;;
@@ -833,91 +661,19 @@ With negative N, comment out original line and use the absolute value."
 (add-hook 'elm-mode-hook 'flycheck-mode)
 
 ;; company
-(add-hook 'elm-mode-hook 'company-mode)
 (add-to-list 'company-backends 'company-elm)
 ;; (with-eval-after-load 'company
 ;;   (add-to-list 'company-backends 'company-elm))
 (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
-
-(add-hook 'elm-mode-hook 'my-ac-auto-t-hook)
 
 (setq elm-tags-on-save t)
 (setq elm-tags-exclude-elm-stuff nil)
 
 (setq elm-format-on-save t)
 
-;;;;;;;;;;;;
-;; R-MODE ;;
-;;;;;;;;;;;;
-
-(require 'ess-smart-underscore)
-(add-to-list 'auto-mode-alist '("\\.rmd\\'" . markdown-mode))
-(require 'ess-r-mode)
-
 ;;;;;;;;;;;;;;
 ;; ORG-MODE ;;
 ;;;;;;;;;;;;;;
-
-(require 'org-install)
-(require 'org)
-
-(setq org-agenda-files '("~/Radovi/Org/Wikidev/Projects/Mainflux/"
-                         "~/Radovi/Org/Wikith/Projekti/Organizer.org"
-                         "~/Radovi/Org/Wikidev/Projects/Experience/Experience.org"
-                         ))
-
-
-(setq org-directory "~/Radovi/Org/Wikith")
-(setq org-html-validation-link nil)
-
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(add-to-list 'auto-mode-alist '("\\.wiki$" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done 'time)
-
-;; highlight src syntax
-(setq org-src-fontify-natively t)
-
-;; hooks for minor mods
-(add-hook 'org-mode-hook '(lambda ()
-                            (setq-local electric-pair-pairs
-                            '(
-                              (?\/ . ?\/)
-                              ;; (?\* . ?\*)
-                              ))
-                            (local-set-key "\C-c\[" 'helm-bibtex)
-                            ))
-(add-hook 'org-mode-hook 'my-ac-auto-nil-hook)
-
-;; TEXT MODE
-;; (add-hook 'text-mode-hook 'my-ac-auto-t-hook)
-
-;; REMEMBER MODE
-(define-key global-map "\C-cc" 'org-capture)
-;; file OR file+headline OR file+datetree
-(setq org-capture-templates
-      '(
-        ("i" "Ideja" entry (file+headline "~/Radovi/Org/Wikith/Ideje/Ideje_03.org" "Ideje")        
-         "* IDEJA \n%U\t*%f*\n%i\n\n%?")
-        ("r" "Rezime" entry (file+headline "~/Radovi/Org/Wikith/Rezimei/Rezimei_01.org" "Rezimei")
-         "* %?\n\n%U")        
-        ("e" "Resurs" entry (file+headline "~/Radovi/Org/Wikith/Resursi/Resursi_01.org" "Resursi")
-         "* %?\n\n%U")
-        ("c" "Citat" entry (file+headline "~/Radovi/Org/Wikith/Citati/Citati_01.org" "Citati")
-         "* %?\n\n%U\n%i")
-        ("j" "Journal" entry (file+headline "~/Radovi/Org/Wikith/Projekti/Journal.org" "Entries")
-         "* %?\n\n%U")        
-        ("t" "Todo" entry (file+headline "~/Radovi/Org/Wikith/Projekti/Organizer.org" "Todo")
-         "* TODO %?\n\n%U")        
-        ))
-
-
-; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
-
-;; CUSTOM TAGS
 
 (defun add-tag-to-org-mode-dict ()
   "Append tag to 'org-mode' 'auto-complete' dict."
@@ -933,25 +689,47 @@ With negative N, comment out original line and use the absolute value."
                             (delete-duplicate-lines (point-min) (point-max) nil t)
                             (save-buffer buffer-name)
                             (kill-buffer buffer-name)
-                            ))
-    (ac-clear-dictionary-cache)))
+                            ))))
 
-(add-hook 'org-mode-hook (lambda ()
-                           (local-set-key "\C-c\C-t" 'add-tag-to-org-mode-dict)
-                           ))
+(use-package wrap-region
+  :config
+  (wrap-region-add-wrapper "=" "=" nil 'org-mode) ; select region, hit = then region -> =region= in org-mode
+  (wrap-region-add-wrapper "*" "*" nil 'org-mode) ; select region, hit * then region -> *region* in org-mode
+  (wrap-region-add-wrapper "/" "/" nil 'org-mode) ; select region, hit / then region -> /region/ in org-mode
+  (wrap-region-add-wrapper "_" "_" nil 'org-mode) ; select region, hit _ then region -> _region_ in org-mode
+  (wrap-region-add-wrapper "+" "+" nil 'org-mode) ; select region, hit + then region -> +region+ in org-mode
+  (wrap-region-add-wrapper "~" "~" nil 'org-mode) ; select region, hit ~ then region -> ~region~ in org-mode  
+  )
 
-;; WRAP-REGION
-
-(require 'wrap-region)
-
-(add-hook 'org-mode-hook #'wrap-region-mode)
-
-(wrap-region-add-wrapper "=" "=" nil 'org-mode) ; select region, hit = then region -> =region= in org-mode
-(wrap-region-add-wrapper "*" "*" nil 'org-mode) ; select region, hit * then region -> *region* in org-mode
-(wrap-region-add-wrapper "/" "/" nil 'org-mode) ; select region, hit / then region -> /region/ in org-mode
-(wrap-region-add-wrapper "_" "_" nil 'org-mode) ; select region, hit _ then region -> _region_ in org-mode
-(wrap-region-add-wrapper "+" "+" nil 'org-mode) ; select region, hit + then region -> +region+ in org-mode
-(wrap-region-add-wrapper "~" "~" nil 'org-mode) ; select region, hit ~ then region -> ~region~ in org-mode
+(use-package org-mode
+  :commands wrap-region-mode
+  :mode (("\\.org$" . org-mode) ("\\.wiki$" . org-mode))
+  :init
+  (add-hook 'org-mode-hook #'wrap-region-mode)
+  (setq org-directory "~/Radovi/Org/Wikith")
+  (setq org-html-validation-link nil)
+  (setq org-log-done 'time)
+  (setq org-src-fontify-natively t)
+  (setq org-agenda-files '("~/Radovi/Org/Wikidev/Projects/Mainflux/"
+                         "~/Radovi/Org/Wikith/Projekti/Organizer.org"
+                         "~/Radovi/Org/Wikidev/Projects/Experience/Experience.org"))
+  (setq org-capture-templates '(
+          ("i" "Ideja" entry (file+headline "~/Radovi/Org/Wikith/Ideje/Ideje_03.org" "Ideje") "* IDEJA \n%U\t*%f*\n%i\n\n%?")
+          ("r" "Rezime" entry (file+headline "~/Radovi/Org/Wikith/Rezimei/Rezimei_01.org" "Rezimei") "* %?\n\n%U")
+          ("e" "Resurs" entry (file+headline "~/Radovi/Org/Wikith/Resursi/Resursi_01.org" "Resursi") "* %?\n\n%U")
+          ("c" "Citat" entry (file+headline "~/Radovi/Org/Wikith/Citati/Citati_01.org" "Citati") "* %?\n\n%U\n%i")
+          ("j" "Journal" entry (file+headline "~/Radovi/Org/Wikith/Projekti/Journal.org" "Entries") "* %?\n\n%U")
+          ("t" "Todo" entry (file+headline "~/Radovi/Org/Wikith/Projekti/Organizer.org" "Todo") "* TODO %?\n\n%U")))
+  (setq org-refile-targets (quote ((nil :maxlevel . 9) (org-agenda-files :maxlevel . 9)))) ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+  (setq org-latex-prefer-user-labels t)
+  (setq org-latex-pdf-process '("texi2dvi -p -b -V %f"))
+  :bind
+  (("C-c l" . org-store-link)
+  ("C-c a" . org-agenda)
+  ("C-c [" . helm-bibtex)
+  ("C-c c" . org-capture)
+  ("C-c C-t" . add-tag-to-org-mode-dict))
+  )
 
 ;;;;;;;;;;;;;;;;;;
 ;; BIBLIOGRAPHY ;;
@@ -967,48 +745,38 @@ With negative N, comment out original line and use the absolute value."
                       "/home/darko/Radovi/Org/Wikith/Projekti/HegelDiaLog/HegelDiaLog.bib"
                       ))
 
-;; HELM-BIBTEX
+(use-package bibtex
+  :init
+  (setq bibtex-completion-additional-search-fields '(keywords))
+  (setq bibtex-completion-bibliography bibliographies)
+  )
 
-(setq bibtex-completion-additional-search-fields '(keywords))
-(setq bibtex-completion-bibliography bibliographies)
+(use-package ebib
+  :init
+  (setq ebib-index-window-size 26)
+  (setq ebib-keywords-field-keep-sorted t)
+  (setq ebib-keywords-file "~/Radovi/Org/Dict/org-mode")
+  (setq ebib-keywords-file-save-on-exit (quote always))
+  (setq ebib-preload-bib-files bibliographies)
+  :bind
+  (("C-c e" . ebib)
+   :map ebib-multiline-mode-map
+   ("C-c C-c" . ebib-quit-multiline-buffer-and-save)
+   ("C-c C-q" . ebib-cancel-multiline-buffer)
+   ("C-c C-s" . ebib-save-from-multiline-buffer)
+   )
+  )
 
-(add-hook 'bibtex-mode-hook 'my-ac-auto-t-hook)
+(use-package org-ref)
 
-;; EBIB
+;;;;;;;;;
+;; SML ;;
+;;;;;;;;;
 
-(global-set-key "\C-ce" 'ebib)
-
-(eval-after-load 'ebib
-  '(progn
-     (define-key ebib-multiline-mode-map
-       "\C-c\C-c" 'ebib-quit-multiline-buffer-and-save)
-     (define-key ebib-multiline-mode-map
-       "\C-c\C-q" 'ebib-cancel-multiline-buffer)
-     (define-key ebib-multiline-mode-map
-       "\C-c\C-s" 'ebib-save-from-multiline-buffer)
-     (setq ebib-index-window-size 26)
-     (setq ebib-keywords-field-keep-sorted t)
-     (setq ebib-keywords-file "~/Radovi/Org/Dict/org-mode")
-     (setq ebib-keywords-file-save-on-exit (quote always))
-     (setq ebib-preload-bib-files bibliographies)))
-
-;; ORG-REF
-
-(require 'org-ref)
-(setq org-latex-prefer-user-labels t)
-(setq org-latex-pdf-process '("texi2dvi -p -b -V %f"))
-
-;;;;;;;;;;;;;;;;;;
-;; SML + TIDAL  ;;
-;;;;;;;;;;;;;;;;;;
-
-(require 'haskell-mode)
-(require 'tidal)
-
-(add-hook 'sml-mode-hook 'display-line-numbers-mode)
-
-(add-hook 'sml-mode-hook 'my-ac-auto-t-hook)
-(add-hook 'sml-mode-hook '(lambda ()
-                            (local-set-key " " 'sml-electric-space)
-                            ))
-
+(use-package sml-mode
+  :init
+  (add-hook 'sml-mode-hook 'display-line-numbers-mode)
+  :bind (:map sm)
+  :config
+  (local-set-key " " 'sml-electric-space)
+  )
