@@ -1,144 +1,47 @@
+;;;;;;;;;;;
+;; THEME ;;
+;;;;;;;;;;;
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
  '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(auto-save-default nil)
- '(blink-cursor-mode nil)
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(c-default-style
-   (quote
-    ((c++-mode . "stroustrup")
-     (java-mode . "java")
-     (awk-mode . "awk")
-     (other . "gnu"))))
- '(comint-move-point-for-output t)
- '(comint-scroll-to-bottom-on-input t)
- '(compilation-message-face (quote default))
- '(compilation-scroll-output t)
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#839496")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(custom-safe-themes
    (quote
-    ("bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "04232a0bfc50eac64c12471607090ecac9d7fd2d79e388f8543d1c5439ed81f5" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "fe20c1ea61a2836a5cea69963865b5b8df8c480ccaf3f11ad7f2e1f543f6c274" "7c4aebe99e804e7b41f34e8e2366cadd61c07977e72e4a0ee9498000a95c5d86" default)))
- '(custom-theme-directory "~/.emacs.d/themes")
- '(desktop-path (quote ("~/.emacs.d/" "~" "~/.emacs.d/desktop")))
- '(dired-dwim-target t)
- '(dired-find-subdir nil)
- '(ess-R-font-lock-keywords
-   (quote
-    ((ess-R-fl-keyword:keywords . t)
-     (ess-R-fl-keyword:constants . t)
-     (ess-R-fl-keyword:modifiers . t)
-     (ess-R-fl-keyword:fun-defs . t)
-     (ess-R-fl-keyword:assign-ops . t)
-     (ess-R-fl-keyword:%op% . t)
-     (ess-fl-keyword:fun-calls . t)
-     (ess-fl-keyword:numbers . t)
-     (ess-fl-keyword:operators . t)
-     (ess-fl-keyword:delimiters)
-     (ess-fl-keyword:=)
-     (ess-R-fl-keyword:F&T))))
- '(fci-rule-color "#073642")
- '(flycheck-highlighting-mode (quote symbols))
- '(global-auto-revert-mode t)
- '(grep-command "grep -nHir -e ")
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors
-   (--map
-    (solarized-color-blend it "#002b36" 0.25)
-    (quote
-     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
- '(highlight-symbol-foreground-color "#93a1a1")
- '(highlight-tail-colors
-   (quote
-    (("#073642" . 0)
-     ("#546E00" . 20)
-     ("#00736F" . 30)
-     ("#00629D" . 50)
-     ("#7B6000" . 60)
-     ("#8B2C02" . 70)
-     ("#93115C" . 85)
-     ("#073642" . 100))))
- '(hl-bg-colors
-   (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
- '(hl-fg-colors
-   (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
- '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
- '(inhibit-startup-screen t)
- '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(irony-supported-major-modes (quote (c++-mode c-mode objc-mode glsl-mode)))
- '(jdee-run-working-directory "/home/darko/Documents/java/")
- '(jdee-server-dir "/home/darko/Programs/jdee-bundle")
- '(magit-diff-use-overlays nil)
+    ("76c5b2592c62f6b48923c00f97f74bcb7ddb741618283bdb2be35f3c0e1030e3" default)))
+ '(fci-rule-color "#383838")
  '(nrepl-message-colors
    (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
- '(nxml-child-indent 4)
- '(org-link-frame-setup
-   (quote
-    ((vm . vm-visit-folder-other-frame)
-     (vm-imap . vm-visit-imap-folder-other-frame)
-     (gnus . org-gnus-no-new-news)
-     (file . find-file)
-     (wl . wl-other-frame))))
- '(org-refile-use-outline-path (quote file))
- '(org-src-fontify-natively t)
- '(org-tag-faces nil)
- '(package-selected-packages
-   (quote
-    (flycheck-mode smartparens rainbow-delimiters highlight-indent-guides flycheck-pyflakes conda company-anaconda anaconda-mode company-go company-rtags auto-complete-clang cmake-ide clang-format all-the-icons-dired all-the-icons neotree helm-gtags flx-ido projectile markdown-preview-mode csharp-mode csv-mode json-mode indium gnu-elpa-keyring-update company-emacs-eclim eclim ag go-rename ess-R-data-view ess-smart-equals ess-smart-underscore ess-view buffer-move helm-esa company-glsl fzf angular-snippets angular-mode js2-highlight-vars company-quickhelp monokai-theme yasnippet-classic-snippets flymake-lua company-lua docker-compose-mode dockerfile-mode markdown-mode+ flycheck-irony irony-eldoc company-irony-c-headers company-irony company-jedi expand-region wrap-region sml-mode bongo processing-snippets processing-mode pyenv-mode virtualenv tabbar moz inform-mode fuzzy flymake column-marker color-theme-sanityinc-solarized cl-generic ac-js2 ac-anaconda)))
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
- '(pos-tip-background-color "#073642")
- '(pos-tip-foreground-color "#93a1a1")
- '(safe-local-variable-values (quote ((require-final-newline))))
- '(sentence-end-double-space nil)
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
- '(tab-width 4)
- '(term-default-bg-color "#002b36")
- '(term-default-fg-color "#839496")
- '(tool-bar-mode nil)
- '(vc-annotate-background nil)
- '(vc-annotate-background-mode nil)
+ '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote
-    ((20 . "#dc322f")
-     (40 . "#cb4b16")
-     (60 . "#b58900")
-     (80 . "#859900")
-     (100 . "#2aa198")
-     (120 . "#268bd2")
-     (140 . "#d33682")
-     (160 . "#6c71c4")
-     (180 . "#dc322f")
-     (200 . "#cb4b16")
-     (220 . "#b58900")
-     (240 . "#859900")
-     (260 . "#2aa198")
-     (280 . "#268bd2")
-     (300 . "#d33682")
-     (320 . "#6c71c4")
-     (340 . "#dc322f")
-     (360 . "#cb4b16"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
- '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
- '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"])
- '(yas-indent-line (quote auto)))
-
+    ((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -146,10 +49,23 @@
  ;; If there is more than one, they won't work right.
  )
 
-;;;;;;;;;;;
-;; FONTS ;;
-;;;;;;;;;;;
+;;;;;;;;;
+;; VAR ;;
+;;;;;;;;;
 
+(setq custom-theme-directory "~/.emacs.d/themes")
+
+(setq auto-save-default nil)
+(setq vc-follow-symlinks 2)
+(setq blink-cursor-mode nil)
+(setq comint-move-point-for-output t)
+(setq comint-scroll-to-bottom-on-input t)
+(setq compilation-scroll-output t)
+
+(setq global-auto-revert-mode t)
+(setq inhibit-startup-screen t)
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (set-frame-font "DejaVu Sans Mono 13" nil t)
 
 ;;;;;;;;;;;
@@ -262,20 +178,6 @@ With negative N, comment out original line and use the absolute value."
   (kill-ring-save (line-beginning-position)
                   (line-beginning-position (+ 1 arg)))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
-
-(defun region-remove-whitespace ()
-  "Remove all newlines and double spaces in the region."
-  (interactive)
-  (save-restriction
-    (narrow-to-region (point) (mark))
-    (goto-char (point-min))
-    (while (search-forward "\n" nil t) (replace-match " " nil t))
-    (goto-char (point-min))
-    (while (search-forward "  " nil t) (replace-match " " nil t))
-    (goto-char (point-min))
-    (while (search-forward "- " nil t) (replace-match "" nil t))
-    ;; (insert "\n")
-    ))
 
 ;;;;;;;;;;;;;;
 ;; MODES    ;;
@@ -1110,34 +1012,3 @@ With negative N, comment out original line and use the absolute value."
                             (local-set-key " " 'sml-electric-space)
                             ))
 
-;;;;;;;;;;;;;;;
-;; SOLARIZED ;;
-;;;;;;;;;;;;;;;
-
-;; make the fringe stand out from the background
-(setq solarized-distinct-fringe-background t)
-
-;; Don't change the font for some headings and titles
-(setq solarized-use-variable-pitch nil)
-
-;; make the modeline high contrast
-(setq solarized-high-contrast-mode-line t)
-
-;; Use less bolding
-;; (setq solarized-use-less-bold t)
-
-;; Use more italics
-(setq solarized-use-more-italic t)
-
-;; Use less colors for indicators such as git:gutter, flycheck and similar
-;; (setq solarized-emphasize-indicators nil)
-
-;; Don't change size of org-mode headlines (but keep other size-changes)
-(setq solarized-scale-org-headlines nil)
-
-;; Avoid all font-size changes
-;; (setq solarized-height-minus-1 1.0)
-;; (setq solarized-height-plus-1 1.0)
-;; (setq solarized-height-plus-2 1.0)
-;; (setq solarized-height-plus-3 1.0)
-;; (setq solarized-height-plus-4 1.0)
