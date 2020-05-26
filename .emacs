@@ -21,7 +21,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref neotree move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags golint go-rename gnu-elpa-keyring-update fzf flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide all-the-icons-dired ag)))
+    (treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-python-ms company-lsp lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide ag)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -153,6 +153,54 @@ With negative N, comment out original line and use the absolute value."
 (require 'use-package)
 
 ;;;;;;;;;;;;;;
+;; TREEMACS ;;
+;;;;;;;;;;;;;;
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  (setq treemacs--icon-size 14)
+  (setq treemacs-width 28)  
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode t)
+  (pcase (cons (not (null (executable-find "git")))
+               (not (null treemacs-python-executable)))
+    (`(t . t)
+     (treemacs-git-mode 'deferred))
+    (`(t . _)
+     (treemacs-git-mode 'simple)))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag))
+  )
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :ensure t)
+
+(use-package lsp-treemacs
+  :after treemacs
+  :ensure t
+  :config
+  (lsp-treemacs-sync-mode 1) ; bidirectional synchronization of lsp workspace folders and treemacs projects
+  )
+
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :ensure t
+  :config (treemacs-icons-dired-mode))
+
+;;;;;;;;;;;;;;
 ;; MODES    ;;
 ;;;;;;;;;;;;;;
 
@@ -233,14 +281,6 @@ With negative N, comment out original line and use the absolute value."
 (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
 ;; OR (setq flx-ido-use-faces nil)
 
-;; NEOTREE
-(require 'all-the-icons)
-
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(setq neo-window-fixed-size nil)
-
 ;; YASNIPPET
 ;; should be loaded before auto complete so that they can work together
 (require 'yasnippet)
@@ -261,11 +301,11 @@ With negative N, comment out original line and use the absolute value."
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1)
+  (setq company-minimum-prefix-length 0)
   ;; (setq company-show-numbers t)
   )
 
-(company-quickhelp-mode)
+;; (company-quickhelp-mode)
 
 ;; HIPPIE
 (global-set-key "\M- " 'hippie-expand)
@@ -335,11 +375,17 @@ With negative N, comment out original line and use the absolute value."
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred))
+  :hook (go-mode . lsp-deferred)
+  :config
+  
+  (use-package company-lsp
+    :config
+    (push 'company-lsp company-backends))
 
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode)
+  )
 
 ;;;;;;;;;;;;;;;;
 ;; C++        ;;
@@ -428,26 +474,10 @@ With negative N, comment out original line and use the absolute value."
 ;; PYTHON     ;;
 ;;;;;;;;;;;;;;;;
 
-(use-package elpy
+(use-package lsp-python-ms
   :ensure t
-  :init
-  (elpy-enable))
-
-(use-package python
-  :mode ("\\.py\\'" . python-mode)
-  :interpreter ("python3" . python-mode)
-  :init
-  (add-hook 'python-mode-hook 'display-line-numbers-mode)
-  (add-hook 'python-mode-hook 'flycheck-mode)
-  (add-hook 'python-mode-hook 'elpy-mode)
-  (defun my-python-mode-hook ()
-    (setq-local company-backends '((elpy-company-backend company-jedi company-etags company-dabbrev-code company-yasnippet))))
-  (add-hook 'python-mode-hook 'my-python-mode-hook)
-  :config
-  (use-package flycheck
-    :ensure t
-    :config
-    (setq flycheck-python-pylint-executable "pylint3"))
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook ((python-mode . lsp-deferred) (python-mode . pyvenv-mode))
   )
 
 ;;;;;;;;;;;;
