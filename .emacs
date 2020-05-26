@@ -21,7 +21,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode tide projectile org-ref neotree move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags golint go-rename gnu-elpa-keyring-update fzf flycheck-pyflakes flycheck-irony flycheck-elm flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide all-the-icons-dired ag)))
+    (lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref neotree move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags golint go-rename gnu-elpa-keyring-update fzf flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide all-the-icons-dired ag)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -69,19 +69,8 @@
 (setq inhibit-startup-screen t)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(set-frame-font "DejaVu Sans Mono 13" nil t)
 
 (transient-mark-mode 1)
-
-;;;;;;;;;;;
-;; LOADS ;;
-;;;;;;;;;;;
-
-(load "~/Radovi/Org/Dict/my_emacs_abbrev.el")
-
-;;;;;;;;;;;;;;;
-;; VARIABLES ;;
-;;;;;;;;;;;;;;;
 
 (setq default-directory "~/Radovi/Org/" )
 (setq bookmark-save-flag 1)
@@ -90,38 +79,18 @@
 (setq fci-rule-column 80)
 (setq global-auto-revert-mode t)
 
-;; tabs&indents
 (setq-default indent-tabs-mode nil)
 
-;; split vertically when vising new buffer
+;; split vertically when visiting new buffer
 (setq split-height-threshold nil)
 (setq split-width-threshold 0)
 
 (setq scroll-conservatively 10)
 (setq scroll-margin 7)
 
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; GLOBAL KEYBINDINGS ;;
-;;;;;;;;;;;;;;;;;;;;;;;;
+(set-frame-font "DejaVu Sans Mono 14" nil t)
 
-(global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "M-i") 'imenu)
-(define-key global-map (kbd "RET") 'newline-and-indent)
-(global-set-key "\C-j" 'newline-and-indent)
-
-;;;;;;;;;;;;;;
-;; PACKAGE  ;;
-;;;;;;;;;;;;;;
-
-(require 'package)
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("marmalade" . "http://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.milkbox.net/packages/")
-        ))
-(package-initialize)
-
-(require 'use-package)
+(load "~/Radovi/Org/Dict/my_emacs_abbrev.el")
 
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;
@@ -135,8 +104,6 @@
         (setq beg (region-beginning) end (region-end))
       (setq beg (line-beginning-position) end (line-end-position)))
     (comment-or-uncomment-region beg end)))
-
-(global-set-key "\C-cu" 'comment-or-uncomment-region-or-line)
 
 (defun duplicate-line-or-region (&optional n)
   "Duplicate current line, or region if active.
@@ -160,7 +127,30 @@ With negative N, comment out original line and use the absolute value."
         (forward-line 1)
         (forward-char pos)))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; GLOBAL KEYBINDINGS ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "M-i") 'imenu)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(global-set-key "\C-j" 'newline-and-indent)
+(global-set-key "\C-cu" 'comment-or-uncomment-region-or-line)
 (global-set-key [?\C-c ?d] 'duplicate-line-or-region)
+
+;;;;;;;;;;;;;;
+;; PACKAGE  ;;
+;;;;;;;;;;;;;;
+
+(require 'package)
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")
+        ("melpa" . "http://melpa.milkbox.net/packages/")
+        ))
+(package-initialize)
+
+(require 'use-package)
 
 ;;;;;;;;;;;;;;
 ;; MODES    ;;
@@ -259,18 +249,19 @@ With negative N, comment out original line and use the absolute value."
 ;; (setq yas-snippet-dirs (append yas-snippet-dirs '("~/emacs.d/snippets")))
 
 ;; FLYCHECK
-(require 'flycheck)
-
-(setq flycheck-display-errors-function
-      #'flycheck-display-error-messages-unless-error-list)
+(use-package flycheck
+  :ensure t
+  :init
+  (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
+  )
 
 ;; COMPANY
 (use-package company
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
-  (setq company-idle-delay 0.25)
-  (setq company-minimum-prefix-length 0)
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
   ;; (setq company-show-numbers t)
   )
 
@@ -326,16 +317,29 @@ With negative N, comment out original line and use the absolute value."
 (define-key projectile-mode-map [?\s-c] 'projectile-compile-project)
 (define-key projectile-mode-map [?\s-v] 'projectile-vc)
 
-;; helm-gtags
-(setq helm-gtags-suggested-key-mapping t)
-(setq helm-gtags-prefix-key "\C-c t")
-(require 'helm-gtags)
-
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;
 ;; PROG LANG  ;;
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;
+
+;; helm-gtags
+(setq helm-gtags-suggested-key-mapping t)
+(setq helm-gtags-prefix-key "\C-c t")
+(require 'helm-gtags)
+
+;;;;;;;;;;;;;;
+;; LSP-MODE ;;
+;;;;;;;;;;;;;;
+
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :hook (go-mode . lsp-deferred))
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
 
 ;;;;;;;;;;;;;;;;
 ;; C++        ;;
@@ -449,12 +453,7 @@ With negative N, comment out original line and use the absolute value."
 ;;;;;;;;;;;;
 ;; GOLANG ;;
 ;;;;;;;;;;;;
-;; go get -u github.com/rogpeppe/godef
-;; go get -u golang.org/x/tools/cmd/goimports
-;; go get -u github.com/mdempsky/gocode OR for modules go get -u github.com/stamblerre/gocode
-;; go get -u golang.org/x/lint/golint
 
-;; PATH
 ;; ~/.emacs gets the PATH environment via
 (defun set-exec-path-from-shell-PATH ()
   (let ((path-from-shell (replace-regexp-in-string
@@ -466,22 +465,10 @@ With negative N, comment out original line and use the absolute value."
     (setq exec-path (split-string path-from-shell path-separator))))
 (when window-system (set-exec-path-from-shell-PATH))
 
-;; USE-PACKAGE
-(use-package go-mode
-  :init
-  (setenv "GOPATH" "/home/darko/go")
-  (add-to-list 'exec-path "/home/darko/go/bin")
-  (add-hook 'go-mode-hook 'flycheck-mode)
-  (add-hook 'go-mode-hook 'display-line-numbers-mode)
-  (add-to-list 'company-backends 'company-go)
-  (add-hook 'before-save-hook 'gofmt-before-save) ; call Gofmt before saving
-  :bind (:map go-mode-map
-              ("M-." . godef-jump)
-              ("C-c k" . godoc-at-point))
-  :config
-  (setq gofmt-command "goimports") ; use goimports instead of go-fmt
-  (setq tab-width 4)
-  )
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
 ;;;;;;;;;;;;;;;;
 ;; TYPESCRIPT ;;
