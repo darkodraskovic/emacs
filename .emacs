@@ -21,7 +21,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-python-ms company-lsp lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide ag)))
+    (go helm-lsp which-key treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-python-ms lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide ag)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -188,13 +188,6 @@ With negative N, comment out original line and use the absolute value."
   :after treemacs projectile
   :ensure t)
 
-(use-package lsp-treemacs
-  :after treemacs
-  :ensure t
-  :config
-  (lsp-treemacs-sync-mode 1) ; bidirectional synchronization of lsp workspace folders and treemacs projects
-  )
-
 (use-package treemacs-icons-dired
   :after treemacs dired
   :ensure t
@@ -301,11 +294,9 @@ With negative N, comment out original line and use the absolute value."
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 0)
+  (setq company-minimum-prefix-length 1)
   ;; (setq company-show-numbers t)
   )
-
-;; (company-quickhelp-mode)
 
 ;; HIPPIE
 (global-set-key "\M- " 'hippie-expand)
@@ -325,6 +316,14 @@ With negative N, comment out original line and use the absolute value."
 
 ;; make cursor movement stop in between camelCase words.
 (global-subword-mode 1)
+
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-idle-delay 0.5)
+  :config
+  (which-key-mode)
+  )
 
 ;;;;;;;;;;;;;;;;
 ;; PROJECTILE ;;
@@ -375,16 +374,29 @@ With negative N, comment out original line and use the absolute value."
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred)
-  :config
-  
-  (use-package company-lsp
-    :config
-    (push 'company-lsp company-backends))
+  :hook (lsp-mode . lsp-enable-which-key-integration)
+  )
 
-  (use-package lsp-ui
-    :ensure t
-    :commands lsp-ui-mode)
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-delay 1)
+  )
+
+(use-package lsp-treemacs
+  :after treemacs
+  :ensure t
+  :commands lsp-treemacs-errors-list
+  :config
+  (lsp-treemacs-sync-mode 1) ; bidirectional synchronization of lsp workspace folders and treemacs projects
+  )
+
+(use-package helm-lsp
+  :ensure t  
+  ;; :commands helm-lsp-workspace-symbol
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
   )
 
 ;;;;;;;;;;;;;;;;
@@ -495,10 +507,16 @@ With negative N, comment out original line and use the absolute value."
     (setq exec-path (split-string path-from-shell path-separator))))
 (when window-system (set-exec-path-from-shell-PATH))
 
-(defun lsp-go-install-save-hooks ()
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+(use-package go
+  :ensure t
+  :commands go-mode
+  :init
+  (defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  :hook
+  ((go-mode . lsp-deferred)
+   (go-mode . lsp-go-install-save-hooks)))
 
 ;;;;;;;;;;;;;;;;
 ;; TYPESCRIPT ;;
