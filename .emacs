@@ -21,7 +21,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (go helm-lsp which-key treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-python-ms lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref move-text markdown-mode+ json-mode js2-highlight-vars irony-eldoc indium helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elpy elm-mode ebib dockerfile-mode docker-compose-mode csv-mode conda company-rtags company-quickhelp company-lua company-jedi company-irony-c-headers company-irony company-go company-cmake company-anaconda cmake-mode cmake-ide ag)))
+    (go helm-lsp which-key treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-python-ms lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref move-text markdown-mode+ json-mode js2-highlight-vars indium helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-rtags company-lua company-cmake cmake-mode ag)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -296,6 +296,7 @@ With negative N, comment out original line and use the absolute value."
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   ;; (setq company-show-numbers t)
+  (delete 'company-clang company-backends)
   )
 
 ;; HIPPIE
@@ -400,69 +401,16 @@ With negative N, comment out original line and use the absolute value."
   )
 
 ;;;;;;;;;;;;;;;;
-;; C++        ;;
+;; CPP        ;;
 ;;;;;;;;;;;;;;;;
-
-(setq-default c-basic-offset 4)
-
-;; IRONY-MODE
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-
-;; Like RTags, Irony requires a compilation database. To create one run the following:
-;; $ cd /path/to/project/root
-;; $ cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-;; cf. https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html
-
-;; (setq-default irony-cdb-compilation-databases '(irony-cdb-json
-;;                                                 irony-cdb-libclang
-;;                                                 irony-cdb-clang-complete
-;;                                                 ))
-;; COMPANY-IRONY
-;; (require 'company-irony)
-
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async)
-  ;; (define-key irony-mode-map [remap completion-at-point]
-  ;;   'counsel-irony)
-  ;; (define-key irony-mode-map [remap complete-symbol]
-  ;;   'counsel-irony)
+;; cf. https://clangd.llvm.org/installation.html for project setup
+(use-package c++
+  :mode ("\\.h\\'" . c++-mode)
+  :commands c++-mode
+  :hook
+  ((c-mode . lsp-deferred)
+   (c++-mode . lsp-deferred))
   )
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-
-(setq company-backends (delete 'company-semantic company-backends))
-
-(require 'cc-mode)
-(define-key c-mode-map (kbd "M-/") 'company-complete)
-(define-key c++-mode-map (kbd "M-/") 'company-complete)
-
-;; COMPANY-IRONY-C-HEADERS
-(require 'company-irony-c-headers)
-
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends '(company-irony-c-headers company-irony)))
-
-;; IRONY-ELDOC
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
-;; FLYCHECK-IRONY
-(eval-after-load 'flycheck
-   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-
-;; STANDARD HOOKS
-(add-hook 'c++-mode-hook 'flycheck-mode)
-(add-hook 'c++-mode-hook 'eldoc-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'display-line-numbers-mode)
-
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;;;;;;;;;;;;;;;;
 ;; CMAKE      ;;
@@ -634,6 +582,7 @@ With negative N, comment out original line and use the absolute value."
 (setq web-mode-enable-current-element-highlight t)
 
 (setq css-indent-offset 2)
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; DOCKER-COMPOSE ;;
 ;;;;;;;;;;;;;;;;;;;;
