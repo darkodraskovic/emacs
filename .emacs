@@ -21,7 +21,7 @@
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (go helm-lsp which-key treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-python-ms lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref move-text markdown-mode+ json-mode js2-highlight-vars indium helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-rtags company-lua company-cmake cmake-mode ag)))
+    (typescript company-dict company-quickhelp go helm-lsp which-key treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets xref-js2 wrap-region web-mode projectile org-ref move-text markdown-mode+ json-mode js2-highlight-vars indium helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-rtags company-lua company-cmake cmake-mode ag)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -65,7 +65,7 @@
 (setq comint-scroll-to-bottom-on-input t)
 (setq compilation-scroll-output t)
 
-(setq global-auto-revert-mode t)
+(global-auto-revert-mode t)
 (setq inhibit-startup-screen t)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -77,7 +77,6 @@
 (setq make-backup-files nil)
 (tool-bar-mode -1)
 (setq fci-rule-column 80)
-(setq global-auto-revert-mode t)
 
 (setq-default indent-tabs-mode nil)
 
@@ -88,7 +87,7 @@
 (setq scroll-conservatively 10)
 (setq scroll-margin 7)
 
-(set-frame-font "DejaVu Sans Mono 14" nil t)
+(set-frame-font "DejaVu Sans Mono 11" nil t)
 
 (load "~/Radovi/Org/Dict/my_emacs_abbrev.el")
 
@@ -299,6 +298,8 @@ With negative N, comment out original line and use the absolute value."
   (delete 'company-clang company-backends)
   )
 
+(company-quickhelp-mode)
+
 ;; HIPPIE
 (global-set-key "\M- " 'hippie-expand)
 
@@ -394,8 +395,7 @@ With negative N, comment out original line and use the absolute value."
   )
 
 (use-package helm-lsp
-  :ensure t  
-  ;; :commands helm-lsp-workspace-symbol
+  :ensure t
   :config
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
   )
@@ -403,10 +403,14 @@ With negative N, comment out original line and use the absolute value."
 ;;;;;;;;;;;;;;;;
 ;; CPP        ;;
 ;;;;;;;;;;;;;;;;
+
 ;; cf. https://clangd.llvm.org/installation.html for project setup
 (use-package c++
-  :mode ("\\.h\\'" . c++-mode)
+  :mode (("\\.h\\'" . c++-mode) ("\\.cpp\\'" . c++-mode))
   :commands c++-mode
+  :init
+  ;; (setq-default c-basic-offset 4)
+  (setq c-default-style "stroustrup")
   :hook
   ((c-mode . lsp-deferred)
    (c++-mode . lsp-deferred))
@@ -434,9 +438,8 @@ With negative N, comment out original line and use the absolute value."
 ;; PYTHON     ;;
 ;;;;;;;;;;;;;;;;
 
-(use-package lsp-python-ms
-  :ensure t
-  :init (setq lsp-python-ms-auto-install-server t)
+(use-package python
+  :commands python-mode
   :hook ((python-mode . lsp-deferred) (python-mode . pyvenv-mode))
   )
 
@@ -470,48 +473,28 @@ With negative N, comment out original line and use the absolute value."
 ;; TYPESCRIPT ;;
 ;;;;;;;;;;;;;;;;
 
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+(use-package typescript
+  :ensure t
+  :commands typescript-mode
+  :init
+  (defun typescript-mode-hooks ()
+    (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+    (setq typescript-indent-level 2)
+    (local-set-key (kbd "M-.") 'lsp-find-definition)
+    )
+  :hook
+  ((typescript-mode . lsp-deferred)
+   (typescript-mode . typescript-mode-hooks)))
 
-;; TIDE: TypeScript Interactive Development Environment for Emacs
-;; cf. https://github.com/ananthakumaran/tide
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode +1)
-  (local-set-key "\C-c\C-d" 'tide-documentation-at-point))
-  
-(setq tide-always-show-documentation t)
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
-
-(setq typescript-indent-level 2)
-;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
-
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
-
-;; TSLint is an extensible static analysis tool that checks TypeScript code for readability, maintainability, and functionality errors.
-;; sudo npm install tslint typescript -g (cf. https://palantir.github.io/tslint/usage/cli/)
-(flycheck-add-mode 'typescript-tslint 'ng2-ts-mode)
-;; sudo apt install tidy
-;; (flycheck-add-mode 'html-tidy 'ng2-html-mode)
-
-;; TS-COMINT (REPL): Run a TypeScript interpreter in an inferior process window
-;; sudo npm install -g tsun (cf. https://github.com/josteink/ts-comint)
-(add-hook 'typescript-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-x C-e") 'ts-send-last-sexp)
-            (local-set-key (kbd "C-M-x") 'ts-send-last-sexp-and-go)
-            (local-set-key (kbd "C-c b") 'ts-send-buffer)
-            (local-set-key (kbd "C-c C-b") 'ts-send-buffer-and-go)
-            (local-set-key (kbd "C-c l") 'ts-load-file-and-go)))
+;; ;; TS-COMINT (REPL): Run a TypeScript interpreter in an inferior process window
+;; ;; sudo npm install -g tsun (cf. https://github.com/josteink/ts-comint)
+;; (add-hook 'typescript-mode-hook
+;;           (lambda ()
+;;             (local-set-key (kbd "C-x C-e") 'ts-send-last-sexp)
+;;             (local-set-key (kbd "C-M-x") 'ts-send-last-sexp-and-go)
+;;             (local-set-key (kbd "C-c b") 'ts-send-buffer)
+;;             (local-set-key (kbd "C-c C-b") 'ts-send-buffer-and-go)
+;;             (local-set-key (kbd "C-c l") 'ts-load-file-and-go)))
 
 ;;;;;;;;;;;;;;;;
 ;; JAVASCRIPT ;;
@@ -668,7 +651,7 @@ With negative N, comment out original line and use the absolute value."
   (setq org-src-fontify-natively t)
   (setq org-agenda-files '("~/Radovi/Org/Wikidev/Projects/Mainflux/"
                          "~/Radovi/Org/Wikith/Projekti/Organizer.org"
-                         "~/Radovi/Org/Wikidev/Projects/Experience/Experience.org"))
+                         "~/Radovi/Org/Wikidev/Projects/CG.org"))
   (setq org-capture-templates '(
           ("i" "Ideja" entry (file+headline "~/Radovi/Org/Wikith/Ideje/Ideje_03.org" "Ideje") "* IDEJA \n%U\t*%f*\n%i\n\n%?")
           ("r" "Rezime" entry (file+headline "~/Radovi/Org/Wikith/Rezimei/Rezimei_01.org" "Rezimei") "* %?\n\n%U")
@@ -679,13 +662,25 @@ With negative N, comment out original line and use the absolute value."
   (setq org-refile-targets (quote ((nil :maxlevel . 9) (org-agenda-files :maxlevel . 9)))) ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
   (setq org-latex-prefer-user-labels t)
   (setq org-latex-pdf-process '("texi2dvi -p -b -V %f"))
+  (add-hook 'org-mode-hook (lambda ()
+                             (setq-local company-idle-delay nil)
+                             (local-set-key (kbd "M-/") 'company-dict)
+                             ))
   :bind
   (("C-c c" . org-capture)
    ("C-c a" . org-agenda)
    ("C-c [" . helm-bibtex)
    ("C-c l" . org-store-link)
-   ("C-c C-t" . add-tag-to-org-mode-dict))
+   ("s-t" . add-tag-to-org-mode-dict)
+   )
+  :config
   )
+
+(use-package company-dict
+  :init
+  (setq company-dict-dir (concat "/home/darko/Radovi/Org/Dict/"))
+  :hook (org . company-dict))
+
 
 ;;;;;;;;;;;;;;;;;;
 ;; BIBLIOGRAPHY ;;
