@@ -87,7 +87,7 @@
 (setq scroll-conservatively 10)
 (setq scroll-margin 7)
 
-(set-frame-font "DejaVu Sans Mono 11" nil t)
+(set-frame-font "DejaVu Sans Mono 12" nil t)
 
 (load "~/Radovi/Org/Dict/my_emacs_abbrev.el")
 
@@ -376,7 +376,8 @@ With negative N, comment out original line and use the absolute value."
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . lsp-enable-which-key-integration)
+  :hook ((lsp-mode . lsp-enable-which-key-integration)
+         (lsp-mode . display-line-numbers-mode))
   )
 
 (use-package lsp-ui
@@ -467,7 +468,8 @@ With negative N, comment out original line and use the absolute value."
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   :hook
   ((go-mode . lsp-deferred)
-   (go-mode . lsp-go-install-save-hooks)))
+   (go-mode . lsp-go-install-save-hooks))
+  )
 
 ;;;;;;;;;;;;;;;;
 ;; TYPESCRIPT ;;
@@ -485,16 +487,6 @@ With negative N, comment out original line and use the absolute value."
   :hook
   ((typescript-mode . lsp-deferred)
    (typescript-mode . typescript-mode-hooks)))
-
-;; ;; TS-COMINT (REPL): Run a TypeScript interpreter in an inferior process window
-;; ;; sudo npm install -g tsun (cf. https://github.com/josteink/ts-comint)
-;; (add-hook 'typescript-mode-hook
-;;           (lambda ()
-;;             (local-set-key (kbd "C-x C-e") 'ts-send-last-sexp)
-;;             (local-set-key (kbd "C-M-x") 'ts-send-last-sexp-and-go)
-;;             (local-set-key (kbd "C-c b") 'ts-send-buffer)
-;;             (local-set-key (kbd "C-c C-b") 'ts-send-buffer-and-go)
-;;             (local-set-key (kbd "C-c l") 'ts-load-file-and-go)))
 
 ;;;;;;;;;;;;;;;;
 ;; JAVASCRIPT ;;
