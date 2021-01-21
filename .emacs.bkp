@@ -1,9 +1,62 @@
+;;;;;;;;;;;
+;; THEME ;;
+;;;;;;;;;;;
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
+ '(custom-enabled-themes (quote (tsdh-dark)))
+ '(custom-safe-themes
+   (quote
+    ("76c5b2592c62f6b48923c00f97f74bcb7ddb741618283bdb2be35f3c0e1030e3" default)))
+ '(fci-rule-color "#383838")
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(package-selected-packages
+   (quote
+    (nasm-mode json-mode omnisharp csharp-mode elm typescript company-dict company-quickhelp go helm-lsp which-key treemacs-icons-dired lsp-treemacs treemacs-projectile treemacs lsp-ui lsp-mode sml-mode yasnippet-snippets yasnippet-classic-snippets wrap-region web-mode projectile org-ref move-text markdown-mode+ helm-gtags gnu-elpa-keyring-update fzf flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-rtags company-lua company-cmake cmake-mode ag)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 ;;;;;;;;;
 ;; VAR ;;
 ;;;;;;;;;
 
-(setq package-check-signature nil)
-
+(setq custom-theme-directory "~/.emacs.d/themes")
 (blink-cursor-mode 0)
 
 (setq auto-save-default nil)
@@ -38,8 +91,6 @@
 (set-frame-font "DejaVu Sans Mono 13" nil t)
 
 (load "~/Radovi/Org/Dict/my_emacs_abbrev.el")
-
-(load-theme 'tsdh-dark t)
 
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;
@@ -94,7 +145,10 @@ With negative N, comment out original line and use the absolute value."
 (require 'package)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")))
+        ;; ("marmalade" . "http://marmalade-repo.org/packages/")
+        ;; ("melpa" . "http://melpa.org/packages/")
+        ("melpa" . "https://melpa.org/#/")
+        ))
 (package-initialize)
 
 (require 'use-package)
@@ -109,6 +163,7 @@ With negative N, comment out original line and use the absolute value."
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  (setq treemacs--icon-size 12)
   (setq treemacs-width 24)
   :config
   (treemacs-follow-mode t)
@@ -134,6 +189,11 @@ With negative N, comment out original line and use the absolute value."
   :after treemacs projectile
   :ensure t)
 
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :ensure t
+  :config (treemacs-icons-dired-mode))
+
 ;;;;;;;;;;;;;;
 ;; MODES    ;;
 ;;;;;;;;;;;;;;
@@ -143,9 +203,14 @@ With negative N, comment out original line and use the absolute value."
 (setq electric-pair-text-pairs nil)
 (electric-pair-mode 1)
 
+;; yas-mode
+(yas-minor-mode 1)
+
 ;; show-paren-mode
 (show-paren-mode 1)
 
+;; switch windows with your shift key by pressing S-<left>, S-<right>, S-<up>, S-<down>
+(windmove-default-keybindings)
 ;; "undo" (and “redo”) changes in the window configuration with the key commands ‘C-c
 (winner-mode 1)
 
@@ -262,64 +327,47 @@ With negative N, comment out original line and use the absolute value."
   (which-key-mode)
   )
 
-(use-package ace-window
-  :ensure t
-  :commands ace-window
-  :init
-  (global-set-key (kbd "M-o") 'ace-window)
-  ;; (setq aw-background nil)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  (defvar aw-dispatch-alist
-    '((?x aw-delete-window "Delete Window")
-      (?m aw-swap-window "Swap Windows")
-      (?M aw-move-window "Move Window")
-      (?c aw-copy-window "Copy Window")
-      (?j aw-switch-buffer-in-window "Select Buffer")
-      (?n aw-flip-window)
-      (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-      (?c aw-split-window-fair "Split Fair Window")
-      (?v aw-split-window-vert "Split Vert Window")
-      (?b aw-split-window-horz "Split Horz Window")
-      (?o delete-other-windows "Delete Other Windows")
-      (?? aw-show-dispatch-help))
-    "List of actions for `aw-dispatch-default'.")
-  )
-
 ;;;;;;;;;;;;;;;;
 ;; PROJECTILE ;;
 ;;;;;;;;;;;;;;;;
 
 ;; Recentf is a minor mode that builds a list of recently opened files
-;; (recentf-mode 1)
-;; (setq recentf-max-menu-items 25)
-;; (setq recentf-max-saved-items 25)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 25)
 ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-(use-package projectile
-  :ensure t
-  :bind-keymap ("s-p" . projectile-command-map) 
-  :bind (:map projectile-mode-map
-              ("s-r" . projectile-replace)                
-              ;; ("s-e" . projectile-recentf)                
-              
-              ("s-g" . projectile-find-file-dwim)         
-              ("s-f" . projectile-find-file)              
-              ("s-d" . projectile-find-dir)               
-              ("s-D" . projectile-dired)                  
-              ("s-s ?s" . projectile-ag)                  
-              ("s-a" . projectile-find-other-file)        
-              
-              ("s-C" . projectile-configure-project)      
-              ("s-c" . projectile-compile-project)        
-              ("s-v" . projectile-vc))
-  )
-(projectile-mode 1)
+(require 'projectile)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(projectile-mode +1)
+
+(add-to-list 'package-pinned-packages '(projectile . "melpa-stable") t)
+
+(define-key projectile-mode-map [?\s-r] 'projectile-replace)
+(define-key projectile-mode-map [?\s-e] 'projectile-recentf)
+
+(define-key projectile-mode-map [?\s-g] 'projectile-find-file-dwim)
+(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+(define-key projectile-mode-map [?\s-D] 'projectile-dired)
+(define-key projectile-mode-map [?\s-s ?s] 'projectile-ag)
+(define-key projectile-mode-map [?\s-a] 'projectile-find-other-file)
+
+(define-key projectile-mode-map [?\s-C] 'projectile-configure-project)
+(define-key projectile-mode-map [?\s-c] 'projectile-compile-project)
+(define-key projectile-mode-map [?\s-v] 'projectile-vc)
 
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;
 ;; PROG LANG  ;;
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;
+
+;; helm-gtags
+(setq helm-gtags-suggested-key-mapping t)
+(setq helm-gtags-prefix-key "\C-c t")
+(require 'helm-gtags)
 
 ;;;;;;;;;;;;;;
 ;; LSP-MODE ;;
@@ -338,7 +386,6 @@ With negative N, comment out original line and use the absolute value."
   :commands lsp-ui-mode
   :config
   (setq lsp-ui-doc-delay 1)
-  (setq lsp-ui-doc-position 'at-point)
   )
 
 (use-package lsp-treemacs
@@ -378,10 +425,9 @@ With negative N, comment out original line and use the absolute value."
 ;; CMAKE      ;;
 ;;;;;;;;;;;;;;;;
 
-(use-package cmake-mode
-  :hook ((cmake-mode . flycheck-mode)
-         (cmake-mode . display-line-numbers-mode)
-         (cmake-mode . lsp-deferred)))
+(require 'cmake-mode)
+(add-hook 'cmake-mode-hook 'flycheck-mode)
+(add-hook 'cmake-mode-hook 'display-line-numbers-mode)
 
 ;;;;;;;;;;;;;;;
 ;; GLSL mode ;;
@@ -439,7 +485,7 @@ With negative N, comment out original line and use the absolute value."
   :hook (js-mode . lsp-deferred)
   )
 
-(use-package typescript-mode
+(use-package typescript
   :ensure t
   :commands typescript-mode
   :init
@@ -647,18 +693,3 @@ With negative N, comment out original line and use the absolute value."
   (add-hook 'sml-mode-hook 'display-line-numbers-mode)
   :bind (:map sml-mode-map (" " . sml-electric-space))
   )
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (magit yasnippet wrap-region which-key web-mode use-package typescript-mode treemacs-projectile sml-mode pyvenv org-ref nasm-mode move-text markdown-mode+ lsp-ui lsp-treemacs json-mode helm-lsp go-mode gnu-elpa-keyring-update glsl-mode fzf flycheck flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-quickhelp company-dict cmake-mode ag))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
