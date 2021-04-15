@@ -41,6 +41,9 @@
 
 (load-theme 'tsdh-dark t)
 
+(setenv "PKG_CONFIG_PATH" "/usr/local/lib/pkgconfig")
+(setenv "LD_LIBRARY_PATH" "/usr/local/lib")
+
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;
 ;;;;;;;;;;;;;;;;
@@ -183,6 +186,10 @@ With negative N, comment out original line and use the absolute value."
 (setq helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s")
 (setq helm-grep-ag-pipe-cmd-switches '("--color-match '31;43'"))
 (global-set-key (kbd "M-g a") 'helm-do-grep-ag)
+
+;; incremental (file) find name search
+(global-unset-key (kbd "C-c h /"))
+(global-set-key (kbd "M-g f") 'helm-find)
 
 ;; ido-mode + helm
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . ido))
@@ -331,6 +338,8 @@ With negative N, comment out original line and use the absolute value."
   :hook ((lsp-mode . lsp-enable-which-key-integration)
          (lsp-mode . display-line-numbers-mode))
   :bind ("M-." . lsp-find-definition)
+  :config
+  (setq lsp-disabled-clients '(typescript angular-ls))
   )
 
 (use-package lsp-ui
@@ -605,12 +614,8 @@ With negative N, comment out original line and use the absolute value."
 (setq bibliographies (list
                       "/home/darko/Radovi/Org/Wikith/Resursi/Reference.bib"
                       "/home/darko/Radovi/Org/Wikith/Rezimei/Lektira.bib"
-                      "/home/darko/Radovi/Org/Wikith/Projekti/Logike/Logike.bib"
                       "/home/darko/Radovi/Org/Wikith/Projekti/Continuum/Continuum.bib"
                       "/home/darko/Radovi/Org/Wikith/Projekti/Logistika/Logistika.bib"
-                      "/home/darko/Radovi/Org/Wikith/Projekti/Kretanje/Kretanje.bib"                      
-                      "/home/darko/Radovi/Org/Wikith/Projekti/Complexity/Complexity.bib"
-                      "/home/darko/Radovi/Org/Wikith/Projekti/HegelDiaLog/HegelDiaLog.bib"
                       ))
 
 (use-package bibtex
@@ -647,7 +652,6 @@ With negative N, comment out original line and use the absolute value."
   (add-hook 'sml-mode-hook 'display-line-numbers-mode)
   :bind (:map sml-mode-map (" " . sml-electric-space))
   )
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -655,7 +659,7 @@ With negative N, comment out original line and use the absolute value."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit yasnippet wrap-region which-key web-mode use-package typescript-mode treemacs-projectile sml-mode pyvenv org-ref nasm-mode move-text markdown-mode+ lsp-ui lsp-treemacs json-mode helm-lsp go-mode gnu-elpa-keyring-update glsl-mode fzf flycheck flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-quickhelp company-dict cmake-mode ag))))
+    (yasnippet-snippets wrap-region which-key web-mode use-package typescript-mode treemacs-projectile sml-mode pyvenv protobuf-mode org-ref nasm-mode move-text markdown-mode+ magit lua-mode lsp-ui lsp-treemacs json-mode helm-lsp golint go-mode go gnu-elpa-keyring-update glsl-mode fzf flycheck flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-quickhelp company-dict cmake-mode bui ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
