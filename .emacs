@@ -35,7 +35,7 @@
 (setq scroll-conservatively 10)
 (setq scroll-margin 7)
 
-(set-frame-font "DejaVu Sans Mono 13" nil t)
+(set-frame-font "DejaVu Sans Mono 11" nil t)
 
 (load "~/Radovi/Org/Dict/my_emacs_abbrev.el")
 
@@ -43,6 +43,7 @@
 
 (setenv "PKG_CONFIG_PATH" "/usr/local/lib/pkgconfig")
 (setenv "LD_LIBRARY_PATH" "/usr/local/lib")
+(setenv "PATH" (concat "/opt/amiga/bin" (getenv "PATH")))
 
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;
@@ -135,7 +136,8 @@ With negative N, comment out original line and use the absolute value."
 
 (use-package treemacs-projectile
   :after treemacs projectile
-  :ensure t)
+  :ensure t
+  )
 
 ;;;;;;;;;;;;;;
 ;; MODES    ;;
@@ -159,8 +161,10 @@ With negative N, comment out original line and use the absolute value."
 
 ;; It allows you to move the current line using M-up / M-down
 ;; if a region is marked, it will move the region instead.
-(require 'move-text)
-(move-text-default-bindings)
+(use-package move-text
+  :ensure t
+  :init (move-text-default-bindings)
+)
 
 ;; HELM
 (require 'helm)
@@ -183,7 +187,8 @@ With negative N, comment out original line and use the absolute value."
 (global-set-key (kbd "M-s o") 'helm-occur)
 
 ;; sudo apt install silversearcher-ag
-(setq helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s")
+;; (setq helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s")
+(setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
 (setq helm-grep-ag-pipe-cmd-switches '("--color-match '31;43'"))
 (global-set-key (kbd "M-g a") 'helm-do-grep-ag)
 
@@ -209,17 +214,20 @@ With negative N, comment out original line and use the absolute value."
 (setq ido-enable-flex-matching 1)
 (ido-mode t)
 
-(require 'flx-ido)
-(flx-ido-mode 1)
-(setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
-;; OR (setq flx-ido-use-faces nil)
+(use-package flx-ido
+  :ensure t
+  :init (flx-ido-mode 1)
+  :config (setq ido-use-faces nil) ;; disable ido faces to see flx highlights. OR (setq flx-ido-use-faces nil)
+)
 
-;; YASNIPPET
-;; should be loaded before auto complete so that they can work together
-(require 'yasnippet)
-(yas-global-mode 1)
-(yas-reload-all)
-;; (setq yas-snippet-dirs (append yas-snippet-dirs '("~/emacs.d/snippets")))
+(use-package yasnippet
+  :ensure t
+  :init
+  (setq yas-snippet-dirs '("~/Radovi/Linux/.emacs.d/snippets"))
+  (yas-global-mode 1)
+  :config
+  (yas-reload-all)
+  )
 
 ;; FLYCHECK
 (use-package flycheck
@@ -229,9 +237,14 @@ With negative N, comment out original line and use the absolute value."
   )
 
 ;; COMPANY
+(use-package company-quickhelp
+  :ensure t
+  )
+
 (use-package company
   :init
   (add-hook 'after-init-hook 'global-company-mode)
+  (add-hook 'after-init-hook 'company-quickhelp-mode)
   :config
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
@@ -240,14 +253,15 @@ With negative N, comment out original line and use the absolute value."
   :bind ("M-/" . company-dabbrev)
   )
 
-(company-quickhelp-mode)
-
 ;; HIPPIE
 (global-set-key "\M- " 'hippie-expand)
 
 ;; EXPAND-REGION
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+
+(use-package expand-region
+  :ensure t
+  :init (global-set-key (kbd "C-=") 'er/expand-region)
+  )
 
 ;; remember cursor position
 (save-place-mode 1)
@@ -304,20 +318,20 @@ With negative N, comment out original line and use the absolute value."
 
 (use-package projectile
   :ensure t
-  :bind-keymap ("s-p" . projectile-command-map) 
+  :bind-keymap ("s-p" . projectile-command-map)
   :bind (:map projectile-mode-map
-              ("s-r" . projectile-replace)                
-              ;; ("s-e" . projectile-recentf)                
-              
-              ("s-g" . projectile-find-file-dwim)         
-              ("s-f" . projectile-find-file)              
-              ("s-d" . projectile-find-dir)               
-              ("s-D" . projectile-dired)                  
-              ("s-s ?s" . projectile-ag)                  
-              ("s-a" . projectile-find-other-file)        
-              
-              ("s-C" . projectile-configure-project)      
-              ("s-c" . projectile-compile-project)        
+              ("s-r" . projectile-replace)
+              ;; ("s-e" . projectile-recentf)
+
+              ("s-g" . projectile-find-file-dwim)
+              ("s-f" . projectile-find-file)
+              ("s-d" . projectile-find-dir)
+              ("s-D" . projectile-dired)
+              ("s-s ?s" . projectile-ag)
+              ("s-a" . projectile-find-other-file)
+
+              ("s-C" . projectile-configure-project)
+              ("s-c" . projectile-compile-project)
               ("s-v" . projectile-vc))
   )
 (projectile-mode 1)
@@ -380,8 +394,14 @@ With negative N, comment out original line and use the absolute value."
    (c++-mode . lsp-deferred))
   )
 
+(use-package cmake-mode
+  :ensure t
+  )
 
-(add-to-list 'auto-mode-alist '("\\.nasm\\'" . nasm-mode))
+(use-package asm-mode
+  :hook ((asm-mode . display-line-numbers-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.asm\\'" . asm-mode))
+  )
 
 ;;;;;;;;;;;;;;;;
 ;; CMAKE      ;;
@@ -406,9 +426,14 @@ With negative N, comment out original line and use the absolute value."
 ;; PYTHON     ;;
 ;;;;;;;;;;;;;;;;
 
-(use-package python
+(use-package python-mode
+  :ensure t
   :commands python-mode
   :hook ((python-mode . lsp-deferred) (python-mode . pyvenv-mode))
+  )
+
+(use-package pyvenv
+  :ensure t
   )
 
 ;;;;;;;;;;;;
@@ -426,7 +451,7 @@ With negative N, comment out original line and use the absolute value."
     (setq exec-path (split-string path-from-shell path-separator))))
 (when window-system (set-exec-path-from-shell-PATH))
 
-(use-package go
+(use-package go-mode
   :ensure t
   :commands go-mode
   :init
@@ -469,29 +494,35 @@ With negative N, comment out original line and use the absolute value."
   (setq tab-width 2)
   )
 
+
 ;;;;;;;;;;;;;;
 ;; WEB-MODE ;;
 ;;;;;;;;;;;;;;
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.gohtml\\'" . web-mode))
+(use-package web-mode
+  :ensure t
+  :mode (("\\.gohtml\\'" . web-mode) ("\\.html?\\'" . web-mode))
+  :init   (setq web-mode-engines-alist
+                '(("go"    . "\\.gohtml\\'")))
+  :config ((setq web-mode-markup-indent-offset 2)
+           (setq web-mode-enable-current-element-highlight t)
+           (setq nxml-child-indent 4 nxml-attribute-indent 4)
+           (setq css-indent-offset 2)
+           )
+  )
 
-(setq web-mode-engines-alist
-      '(("go"    . "\\.gohtml\\'")))
-
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-enable-current-element-highlight t)
-
-(setq css-indent-offset 2)
-
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
+(use-package css-mode
+  :ensure t
+  :mode ("\\.scss\\'" . css-mode)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; DOCKER-COMPOSE ;;
 ;;;;;;;;;;;;;;;;;;;;
 
-(require 'docker-compose-mode)
+(use-package docker-compose-mode
+  :ensure t
+  )
 
 ;;;;;;;;;;;;;;
 ;; LUA-MODE ;;
@@ -516,7 +547,7 @@ With negative N, comment out original line and use the absolute value."
 ;;;;;;;;;;;;;;
 
 (use-package elm-mode
-  :ensure t
+  ;; :ensure t
   :commands elm-mode
   :init
    (setq lsp-elm-elm-path "/usr/local/bin/elm")
@@ -533,6 +564,15 @@ With negative N, comment out original line and use the absolute value."
   :commands csharp-mode
   :hook (csharp-mode . lsp-deferred)
   )
+
+;;;;;;;;;;
+;; Rust ;;
+;;;;;;;;;;
+
+(use-package rust-mode
+  ;; :ensure t
+  :commands rust-mode
+  :hook (rust-mode . lsp-deferred))
 
 ;;;;;;;;;;;;;;
 ;; ORG-MODE ;;
@@ -552,20 +592,23 @@ With negative N, comment out original line and use the absolute value."
                             (delete-duplicate-lines (point-min) (point-max) nil t)
                             (save-buffer buffer-name)
                             (kill-buffer buffer-name)
-                            ))))
+                            ))
+    (company-dict-refresh)
+    ))
 
 (use-package wrap-region
+  :ensure t
   :config
   (wrap-region-add-wrapper "=" "=" nil 'org-mode) ; select region, hit = then region -> =region= in org-mode
   (wrap-region-add-wrapper "*" "*" nil 'org-mode) ; select region, hit * then region -> *region* in org-mode
   (wrap-region-add-wrapper "/" "/" nil 'org-mode) ; select region, hit / then region -> /region/ in org-mode
   (wrap-region-add-wrapper "_" "_" nil 'org-mode) ; select region, hit _ then region -> _region_ in org-mode
   (wrap-region-add-wrapper "+" "+" nil 'org-mode) ; select region, hit + then region -> +region+ in org-mode
-  (wrap-region-add-wrapper "~" "~" nil 'org-mode) ; select region, hit ~ then region -> ~region~ in org-mode  
+  (wrap-region-add-wrapper "~" "~" nil 'org-mode) ; select region, hit ~ then region -> ~region~ in org-mode
   )
 
 (use-package org-mode
-  :commands wrap-region-mode
+  :after (org-ref)
   :mode (("\\.org$" . org-mode) ("\\.wiki$" . org-mode))
   :init
   (add-hook 'org-mode-hook #'wrap-region-mode)
@@ -581,7 +624,7 @@ With negative N, comment out original line and use the absolute value."
   (setq org-capture-templates '(
           ("r" "Rezime" entry (file+headline "~/Radovi/Org/Wikith/Rezimei/Rezimei_01.org" "Rezimei") "* %?\n\n%U")
           ("c" "Citat" entry (file+headline "~/Radovi/Org/Wikith/Citati/Citati_01.org" "Citati") "* %?\n\n%U\n%i")
-          ("i" "Ideja" entry (file+headline "~/Radovi/Org/Wikith/Ideje/Ideje_03.org" "Ideje") "* IDEJA \n%U\t*%f*\n%i\n\n%?")          
+          ("i" "Ideja" entry (file+headline "~/Radovi/Org/Wikith/Ideje/Ideje_03.org" "Ideje") "* IDEJA \n%U\t*%f*\n%i\n\n%?")
           ("j" "Journal" entry (file+headline "~/Radovi/Org/Wikith/Projekti/Journal.org" "Entries") "* %?\n\n%U")
           ("t" "Todo" entry (file+headline "~/Radovi/Org/Wikith/Projekti/Organizer.org" "Todo") "* TODO %?\n\n%U")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9) (org-agenda-files :maxlevel . 9)))) ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
@@ -598,7 +641,7 @@ With negative N, comment out original line and use the absolute value."
    ("C-c l" . org-store-link)
    ("s-t" . add-tag-to-org-mode-dict)
    )
-  :config
+  ;; :config (electric-indent-local-mode -1)
   )
 
 (use-package company-dict
@@ -640,26 +683,51 @@ With negative N, comment out original line and use the absolute value."
    )
   )
 
-(use-package org-ref)
+(use-package org-ref
+  :ensure t
+  )
 
 ;;;;;;;;;
 ;; SML ;;
 ;;;;;;;;;
 
 (use-package sml-mode
-  :ensure t  
+  :ensure t
   :init
   (add-hook 'sml-mode-hook 'display-line-numbers-mode)
   :bind (:map sml-mode-map (" " . sml-electric-space))
   )
+
+;;;;;;;;;
+;; WIN ;;
+;;;;;;;;;
+
+(when (string-equal system-type "windows-nt")
+  (let ((mypaths
+         '(
+           "C:/Python39/"
+           "C:/Python39/Scripts/"
+           "C:/Program Files/nodejs/"
+           "C:/ProgramData/chocolatey/bin/"
+           "C:/msys64/mingw64/bin/"
+           "C:/msys64/usr/bin/"
+           ))
+        )
+    (setenv "PATH" (mapconcat 'identity mypaths ";"))
+    (setq exec-path (append mypaths (list "." exec-directory))))
+  ;; (w32-register-hot-key [s-]) with w32-lwindow-modifier bound to super
+  ;; disables all the Windows’ own Windows key based shortcuts.
+  (setq w32-lwindow-modifier 'super)
+  (w32-register-hot-key [s-])
+  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (yasnippet-snippets wrap-region which-key web-mode use-package typescript-mode treemacs-projectile sml-mode pyvenv protobuf-mode org-ref nasm-mode move-text markdown-mode+ magit lua-mode lsp-ui lsp-treemacs json-mode helm-lsp golint go-mode go gnu-elpa-keyring-update glsl-mode fzf flycheck flx-ido expand-region elm-mode ebib dockerfile-mode docker-compose-mode csv-mode company-quickhelp company-dict cmake-mode bui ag))))
+   '(tidal python-mode pyenv-mode restart-emacs pg emacsql-sqlite3 emacsql-sqlite emacsql-psql emacsql-mysql dash-functional yasnippet-snippets wrap-region which-key web-mode use-package typescript-mode treemacs-projectile sml-mode pyvenv protobuf-mode org-ref move-text markdown-mode+ magit lua-mode lsp-ui lsp-treemacs json-mode helm-lsp go-mode gnu-elpa-keyring-update glsl-mode fzf flycheck flx-ido expand-region ebib dockerfile-mode docker-compose-mode csv-mode company-quickhelp company-dict cmake-mode ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
