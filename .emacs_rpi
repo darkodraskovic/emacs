@@ -2,9 +2,10 @@
 ;; VAR ;;
 ;;;;;;;;;
 
-(setq package-check-signature nil)
+;; (setq package-check-signature nil)
 
 (blink-cursor-mode 0)
+(set-face-attribute 'default nil :height 108)
 
 ;; turn off bars
 (menu-bar-mode 0)
@@ -49,8 +50,6 @@
 
 (setenv "PKG_CONFIG_PATH" "/usr/local/lib/pkgconfig")
 (setenv "LD_LIBRARY_PATH" "/usr/local/lib")
-(setenv "PATH" (concat "/opt/amiga/bin" (getenv "PATH")))
-(setenv "URHO3D_HOME" "/home/darko/.urho3d/install/linux/")
 
 (setq-default buffer-file-coding-system 'utf-8-unix)
 
@@ -94,7 +93,6 @@ With negative N, comment out original line and use the absolute value."
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-_") 'kill-whole-line) ;; Cmder
 (global-set-key (kbd "M-i") 'imenu)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (global-set-key "\C-j" 'newline-and-indent)
@@ -105,6 +103,8 @@ With negative N, comment out original line and use the absolute value."
 ;; PACKAGE  ;;
 ;;;;;;;;;;;;;;
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (require 'package)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -112,72 +112,6 @@ With negative N, comment out original line and use the absolute value."
 (package-initialize)
 
 (require 'use-package)
-
-;;;;;;;;;;;;
-;; THEME  ;;
-;;;;;;;;;;;;
-
-(use-package doom-themes
-  :ensure t
-  :config
-  (load-theme 'doom-one t)
-
-  ;; (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
-  ;; (doom-themes-treemacs-config)
-
-  (doom-themes-org-config)
-  (custom-set-faces
-  `(mode-line ((t (:background ,(doom-color 'dark-violet)))))
-  `(font-lock-comment-face ((t (:foreground ,(doom-color 'base6))))))
-  )
-
-;; cf. https://www.gnu.org/software/emacs/manual/html_node/elisp/Attribute-Functions.html
-(set-face-attribute 'default nil :height 116)
-
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
-
-;;;;;;;;;;;;;;
-;; TREEMACS ;;
-;;;;;;;;;;;;;;
-
-;; (use-package all-the-icons
-;;   :ensure t
-;;   )
-
-;; (use-package treemacs
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (with-eval-after-load 'winum
-;;     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-;;   (setq treemacs-width 24)
-;;   (setq treemacs--icon-size 16)
-;;   :config
-;;   (treemacs-follow-mode nil)
-;;   (treemacs-filewatch-mode t)
-;;   (treemacs-fringe-indicator-mode t)
-;;   (pcase (cons (not (null (executable-find "git")))
-;;                (not (null treemacs-python-executable)))
-;;     (`(t . t)
-;;      (treemacs-git-mode 'deferred))
-;;     (`(t . _)
-;;      (treemacs-git-mode 'simple)))
-;;   :bind
-;;   (:map global-map
-;;         ("M-0"       . treemacs-select-window)
-;;         ("C-x t 1"   . treemacs-delete-other-windows)
-;;         ("C-x t t"   . treemacs)
-;;         ("C-x t B"   . treemacs-bookmark)
-;;         ("C-x t C-t" . treemacs-find-file)
-;;         ("C-x t M-t" . treemacs-find-tag))
-;;   )
-
-;; (use-package treemacs-projectile
-;;   :after treemacs projectile
-;;   :ensure t
-;;   )
 
 ;;;;;;;;;;;;;;
 ;; MODES    ;;
@@ -265,19 +199,20 @@ With negative N, comment out original line and use the absolute value."
   :config (setq ido-use-faces nil) ;; disable ido faces to see flx highlights. OR (setq flx-ido-use-faces nil)
 )
 
-(use-package yasnippet
-  :ensure t
-  :init
-  (setq yas-snippet-dirs '("~/Radovi/Linux/.emacs.d/snippets"))
-  (yas-global-mode 1)
-  :config
-  (yas-reload-all)
-  )
+;; YASNIPPET
+;; (use-package yasnippet
+;;   :ensure t
+;;   :init
+;;   ;; (setq yas-snippet-dirs '("~/Radovi/Linux/.emacs.d/snippets"))
+;;   (yas-global-mode 1)
+;;   :config
+;;   (yas-reload-all)
+;;   )
 
-(use-package yasnippet-snippets
-  :ensure t
-  :after (yasnippet)
-  )
+;; (use-package yasnippet-snippets
+;;   :ensure t
+;;   :after (yasnippet)
+;;   )
 
 ;; FLYCHECK
 (use-package flycheck
@@ -325,13 +260,13 @@ With negative N, comment out original line and use the absolute value."
 ;; make cursor movement stop in between camelCase words.
 (global-subword-mode 1)
 
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-idle-delay 0.5)
-  :config
-  (which-key-mode)
-  )
+;; (use-package which-key
+;;   :ensure t
+;;   :init
+;;   (setq which-key-idle-delay 0.5)
+;;   :config
+;;   (which-key-mode)
+;;   )
 
 (use-package ace-window
   :ensure t
@@ -356,21 +291,13 @@ With negative N, comment out original line and use the absolute value."
     "List of actions for `aw-dispatch-default'.")
   )
 
-(use-package magit
-  :ensure t
-  )
-
-
+;; (use-package magit
+;;   :ensure t
+;;   )
 
 ;;;;;;;;;;;;;;;;
 ;; PROJECTILE ;;
 ;;;;;;;;;;;;;;;;
-
-;; Recentf is a minor mode that builds a list of recently opened files
-;; (recentf-mode 1)
-;; (setq recentf-max-menu-items 25)
-;; (setq recentf-max-saved-items 25)
-;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 (use-package projectile
   :ensure t
@@ -422,14 +349,6 @@ With negative N, comment out original line and use the absolute value."
   (setq lsp-ui-doc-position 'at-point)
   )
 
-(use-package lsp-treemacs
-  :after treemacs
-  :ensure t
-  :commands lsp-treemacs-errors-list
-  :config
-  (lsp-treemacs-sync-mode 1) ; bidirectional synchronization of lsp workspace folders and treemacs projects
-  )
-
 (use-package helm-lsp
   :ensure t
   :config
@@ -477,13 +396,15 @@ With negative N, comment out original line and use the absolute value."
   ;; you can use `comment-dwim' (M-;) for this kind of behaviour anyway
   (local-unset-key (vector asm-comment-char))
   ;; asm-mode sets it locally to nil, to "stay closer to the old TAB behaviour".
-  (setq tab-always-indent (default-value 'tab-always-indent)))
+  (setq tab-always-indent (default-value 'tab-always-indent))
+  (setq asm-comment-char "/")
+  )
 
 (use-package asm-mode
   :hook ((asm-mode . display-line-numbers-mode)
          (asm-mode . my-asm-mode-hook)
          )
-  :mode (("\\.asm\\'" . asm-mode) ("\\.s\\'" . asm-mode) ("\\.i\\'" . asm-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.asm\\'" . asm-mode))
   )
 
 
@@ -498,17 +419,6 @@ With negative N, comment out original line and use the absolute value."
   :hook ((cmake-mode . flycheck-mode)
          (cmake-mode . display-line-numbers-mode)
          (cmake-mode . lsp-deferred)))
-
-;;;;;;;;;;;;;;;
-;; GLSL mode ;;
-;;;;;;;;;;;;;;;
-
-(use-package glsl
-  :ensure t
-  :mode (("\\.vs\\'" . glsl-mode) ("\\.fs\\'" . glsl-mode) ("\\.shader\\'" . glsl-mode) ("\\.glsl\\'" . glsl-mode))
-  :init
-  (add-hook 'glsl-mode-hook 'display-line-numbers-mode)
-  )
 
 ;;;;;;;;;;;;;;;;
 ;; PYTHON     ;;
@@ -535,97 +445,6 @@ With negative N, comment out original line and use the absolute value."
   :hook (python-mode . (lambda ()
                           (require 'lsp-pyright)
                           (lsp))))  ; or lsp-deferred
-
-;;;;;;;;;;;;
-;; GOLANG ;;
-;;;;;;;;;;;;
-
-;; ~/.emacs gets the PATH environment via
-(defun set-exec-path-from-shell-PATH ()
-  (let ((path-from-shell (replace-regexp-in-string
-                          "[ \t\n]*$"
-                          ""
-                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq eshell-path-env path-from-shell) ; for eshell users
-    (setq exec-path (split-string path-from-shell path-separator))))
-(when window-system (set-exec-path-from-shell-PATH))
-
-(use-package go-mode
-  :ensure t
-  :commands go-mode
-  :init
-  (defun lsp-go-install-save-hooks ()
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
-  :hook
-  ((go-mode . lsp-deferred)
-   (go-mode . lsp-go-install-save-hooks))
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; JAVASCRIPT/TYPESCRIPT ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun ts-js-mode-hooks ()
-  (setq typescript-indent-level 2)
-  (setq js-indent-level 2)
-  (local-set-key (kbd "M-.") 'lsp-find-definition)
-  )
-
-(use-package js
-  :ensure t
-  :commands js-mode
-  :hook ((js-mode . lsp-deferred)
-         (js-mode . ts-js-mode-hooks)
-         )
-  )
-
-(use-package typescript-mode
-  :ensure t
-  :commands typescript-mode
-  :mode (("\\.ts\\'" . typescript-mode)
-         ("\\.tsx\\'" . typescript-mode))
-  :hook
-  ((typescript-mode . lsp-deferred)
-   (typescript-mode . ts-js-mode-hooks))
-  )
-
-(use-package json-mode
-  :ensure t
-  :commands json-mode
-  :mode ("\\.gltf\\'" . json-mode)
-  :hook ((json-mode . lsp-deferred)
-         (json-mode . hs-minor-mode))
-  :config (setq js-indent-level 2)
-  (setq tab-width 2)
-  )
-
-
-;;;;;;;;;;;;;;
-;; WEB-MODE ;;
-;;;;;;;;;;;;;;
-
-(use-package web-mode
-  :ensure t
-  :mode (
-         ;; ("\\.jsx\\'" .  web-mode)
-         ;; ("\\.tsx\\'" . web-mode)
-         ("\\.gohtml\\'" . web-mode) ("\\.html?\\'" . web-mode)
-         )
-  :init   (setq web-mode-engines-alist
-                '(("go"    . "\\.gohtml\\'")))
-  :hook (web-mode . lsp-deferred)
-  :config (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-enable-current-element-highlight t)
-  (setq nxml-child-indent 4 nxml-attribute-indent 4)
-  (setq css-indent-offset 2)
-  )
-
-(use-package css-mode
-  :ensure t
-  :mode ("\\.scss\\'" . css-mode)
-  )
 
 ;;;;;;;;;;;;;;
 ;; LUA-MODE ;;
@@ -739,91 +558,6 @@ With negative N, comment out original line and use the absolute value."
   :config (org-roam-setup)
   )
 
-;;;;;;;;;;;;;;;;;;
-;; BIBLIOGRAPHY ;;
-;;;;;;;;;;;;;;;;;;
-
-(setq bibliographies (list
-                      "~/Radovi/Org/Wikith/Resursi/Reference.bib"
-                      "~/Radovi/Org/Wikith/Projekti/ProtePhilo/ProtePhilo.bib"
-                      ))
-
-(use-package bibtex
-  :init
-  (setq bibtex-completion-additional-search-fields '(keywords))
-  (setq bibtex-completion-bibliography bibliographies) ;; cf. helm-bibtex
-  )
-
-(use-package ebib
-  :ensure t
-  :init
-  (setq ebib-create-backups nil)
-  (setq ebib-index-window-size 26)
-  (setq ebib-keywords-field-keep-sorted t)
-  (setq ebib-keywords-file "~/Radovi/Org/Dict/org-mode")
-  (setq ebib-keywords-file-save-on-exit (quote always))
-  (setq ebib-preload-bib-files bibliographies)
-  :bind
-  (("C-c e" . ebib)
-   :map ebib-multiline-mode-map
-   ("C-c C-c" . ebib-quit-multiline-buffer-and-save)
-   ("C-c C-q" . ebib-cancel-multiline-buffer)
-   ("C-c C-s" . ebib-save-from-multiline-buffer)
-   )
-  )
-
-(use-package org-ref
-  :ensure t
-  )
-
-;;;;;;;;;
-;; SML ;;
-;;;;;;;;;
-
-(use-package sml-mode
-  :ensure t
-  :init
-  (add-hook 'sml-mode-hook 'display-line-numbers-mode)
-  :bind (:map sml-mode-map (" " . sml-electric-space))
-  )
-
-;;;;;;;;;
-;; WIN ;;
-;;;;;;;;;
-
-(when (string-equal system-type "windows-nt")
-  (let ((winpaths
-         '(
-           "C:/Python39/"
-           "C:/Python39/Scripts"
-           "C:/Program Files/nodejs/"
-           "C:/Users/darko/AppData/Roaming/npm/"
-           "C:/ProgramData/chocolatey/bin/"
-           "c:/ProgramData/Anaconda3/Scripts"
-
-           "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\Ninja"
-           "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\amd64"
-           "C:\\Program Files\\LLVM\\bin"
-           "C:\\Program Files\\CMake\\bin"
-           
-           "C:/msys64/mingw64/bin/"
-           "C:/msys64/usr/bin/"
-
-           "C:/Program Files/WinUAE"
-           ))
-        )
-    ;; PATH is used by emacs when you are running a shell in emacs
-    (setenv "PATH" (mapconcat 'identity winpaths ";"))
-    (setenv "URHO3D_HOME" "c:/Users/darko/.urho3d/msvc")
-    ;; exec-path is used by emacs itself to find programs
-    (setq exec-path (append winpaths (list "." exec-directory))))
-  ;; (w32-register-hot-key [s-]) with w32-lwindow-modifier bound to super
-  ;; disables all the Windows’ own Windows key based shortcuts.
-  (setq w32-lwindow-modifier 'super)
-  (w32-register-hot-key [s-])
-  ;; (electric-indent-mode -1)
-  )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; custom-set-variables ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -832,13 +566,14 @@ With negative N, comment out original line and use the absolute value."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
+ '(custom-enabled-themes '(tsdh-dark))
  '(package-selected-packages
-   '(glsl-mode ein clang-format ebib doom-modeline doom-modline doom-themes zenburn-theme yasnippet-snippets wrap-region which-key web-mode use-package typescript-mode sml-mode rust-mode rjsx-mode pyvenv python-mode org-roam org-ref move-text magit lua-mode lsp-ui lsp-treemacs lsp-pyright json-mode helm-lsp go-mode flycheck flx-ido expand-region docker-compose-mode company-quickhelp company-dict cmake-mode blacken)))
+   '(sml-mode org-ref ebib org-roam company-dict wrap-region lua-mode docker-compose-mode web-mode json-mode typescript-mode go-mode lsp-pyright python-mode blacken pyvenv cmake-mode clang-format helm-lsp lsp-treemacs lsp-ui lsp-mode projectile magit ace-window which-key expand-region company-quickhelp flycheck yasnippet-snippets yasnippet flx-ido helm move-text use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-comment-face ((t (:foreground "#73797e"))))
- '(mode-line ((t (:background nil)))))
-
+ )
