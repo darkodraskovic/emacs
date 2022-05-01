@@ -1,0 +1,37 @@
+# name: OpenGL-CG Factory
+# key: glfct
+# --
+#ifndef $1_FACTORY_H
+#define $1_FACTORY_H
+
+#pragma once
+
+#include "Entity.h"
+#include "Shader.h"
+#include "Application.h"
+
+#include_next <vector>
+#include_next <glm/glm.hpp>
+
+using namespace glm;
+
+class $2
+{
+public:
+    $2(Application* app);
+
+private:
+    Application* app_;
+};
+
+#endif
+#include <glm/gtc/constants.hpp>
+
+#include "VecConsts.h"
+#include "$2.h"
+
+using namespace VecConsts;
+
+$2::$2()
+{
+}

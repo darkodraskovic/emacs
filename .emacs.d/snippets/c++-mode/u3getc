@@ -1,0 +1,4 @@
+# name: Urho3D GetComponent 
+# key: ugc
+# --
+$1->GetComponent<$2>()$0

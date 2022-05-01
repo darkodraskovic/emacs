@@ -1,0 +1,4 @@
+# name: Urho3D Log INFOF
+# key: ulif
+# --
+URHO3D_LOGINFOF("%$1", $2); // debug$0

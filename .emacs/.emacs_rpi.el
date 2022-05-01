@@ -570,7 +570,7 @@ With negative N, comment out original line and use the absolute value."
    ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
  '(custom-enabled-themes '(tsdh-dark))
  '(package-selected-packages
-   '(sml-mode org-ref ebib org-roam company-dict wrap-region lua-mode docker-compose-mode web-mode json-mode typescript-mode go-mode lsp-pyright python-mode blacken pyvenv cmake-mode clang-format helm-lsp lsp-treemacs lsp-ui lsp-mode projectile magit ace-window which-key expand-region company-quickhelp flycheck yasnippet-snippets yasnippet flx-ido helm move-text use-package)))
+   '(sml-mode org-ref ebib org-roam company-dict wrap-region lua-mode docker-compose-mode web-mode json-mode typescript-mode go-mode lsp-pyright python-mode blacken pyvenv cmake-mode clang-format helm-lsp lsp-treemacs lsp-ui lsp-mode projectile magit ace-window which-key expand-region company-quickhelp flycheck flx-ido helm move-text use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

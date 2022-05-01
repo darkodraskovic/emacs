@@ -1,0 +1,4 @@
+# name: Urho3D Log INFO
+# key: uli
+# --
+URHO3D_LOGINFO("$1"); // debug$0

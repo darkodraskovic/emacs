@@ -1,0 +1,33 @@
+# name: Urho3D Object
+# key: u3obj
+# --
+#pragma once
+
+#include <Urho3D/Core/Object.h>
+#include <Urho3D/Core/Context.h>
+
+using namespace Urho3D;
+
+namespace $1 {
+
+class $2 : public ${3:Object} {
+    URHO3D_OBJECT($2, $3);
+    void Start();
+
+public:
+    explicit $2 (Context* context);
+};
+
+}
+#include <Urho3D/IO/Log.h>
+
+#include "$2.h"
+
+using namespace $1;
+
+$2::$2(Context* context) : $3(context) {}
+
+void $2::Start() {
+     URHO3D_LOGINFO("$2 Start()");
+}
+

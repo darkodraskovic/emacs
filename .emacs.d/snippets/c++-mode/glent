@@ -1,0 +1,33 @@
+# name: OpenGL-CG Entity
+# key: glent
+# --
+#ifndef $1_H
+#define $1_H
+
+#pragma once
+
+#include "Material.h"
+#include "Entity.h"
+
+class $2 : public Entity
+{
+public:
+    $2();
+    virtual void Update(float time) override;
+};
+
+#endif
+#include "VecConsts.h"
+#include "$2.h"
+
+using namespace VecConsts;
+
+$2::$2()
+{
+    material_ = std::shared_ptr<Material>(new Material);
+    material_->shader_ = std::shared_ptr<Shader>(new Shader( "../Shaders/$3.vs", "../Shaders/$3.fs"));
+}
+
+void $2::Update(float deltaTime) {
+    Rotate(deltaTime*45, FORWARD);
+}

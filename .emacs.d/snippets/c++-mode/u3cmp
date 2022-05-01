@@ -1,0 +1,39 @@
+# name: Urho3D LogicComponent
+# key: u3cmp
+# --
+#pragma once
+
+#include <Urho3D/Core/Context.h>
+#include <Urho3D/Scene/LogicComponent.h>
+
+using namespace Urho3D;
+
+namespace $1 {
+
+class $2 : public LogicComponent {
+    URHO3D_OBJECT($2, LogicComponent);
+
+public:
+    explicit $2 (Context* context);
+    virtual void Start () override;
+    virtual void Update (float timeStep) override;
+};
+
+}
+#include <Urho3D/IO/Log.h>
+
+#include "$2.h"
+
+using namespace $1;
+
+$2::$2(Context* context) : LogicComponent(context) {
+    SetUpdateEventMask(USE_UPDATE);
+}
+
+void $2::Start() {
+     URHO3D_LOGINFO("$2 Start()");     
+}
+
+void $2::Update(float timeStep) {
+
+}

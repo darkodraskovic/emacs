@@ -503,7 +503,7 @@ With negative N, comment out original line and use the absolute value."
 ;; GLSL mode ;;
 ;;;;;;;;;;;;;;;
 
-(use-package glsl
+(use-package glsl-mode
   :ensure t
   :mode (("\\.vs\\'" . glsl-mode) ("\\.fs\\'" . glsl-mode) ("\\.shader\\'" . glsl-mode) ("\\.glsl\\'" . glsl-mode))
   :init

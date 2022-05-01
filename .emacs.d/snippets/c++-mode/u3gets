@@ -1,0 +1,4 @@
+# name: Urho3D GetSubsystem 
+# key: ugs
+# --
+GetSubsystem<$1>()$0
