@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("RPi.org"
+(("Amiga-Emulators"
+ (filename . "c:/Users/darko/Radovi/Org/Wikidev/Amiga.org")
+ (front-context-string . "* Emulators\n\n** ")
+ (rear-context-string . "/ ALL to sys:s\n\n")
+ (position . 2889))
+("RPi.org"
  (filename . "~/Radovi/Org/Wikidev/RPi.org")
  (front-context-string)
  (rear-context-string . ": Raspberry PI\n\n")
