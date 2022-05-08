@@ -2,11 +2,21 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Amiga-Emulators"
- (filename . "c:/Users/darko/Radovi/Org/Wikidev/Amiga.org")
- (front-context-string . "* Emulators\n\n** ")
- (rear-context-string . "/ ALL to sys:s\n\n")
- (position . 2889))
+(("raylib-procgen.org"
+ (filename . "c:/Users/darko/Radovi/Org/Wikidev/Projects/CG/raylib-procgen.org")
+ (front-context-string . "#+TITLE: raylib-")
+ (rear-context-string)
+ (position . 1))
+("Projects-Prog"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Projects.org")
+ (front-context-string . "#+TITLE: Project")
+ (rear-context-string)
+ (position . 1))
+("Projekti-Filo"
+ (filename . "~/Radovi/Org/Wikith/Projekti/Organizer.org")
+ (front-context-string . "* Projekti\n\n- Ar")
+ (rear-context-string . ": :filozofija:\n\n")
+ (position . 46))
 ("RPi.org"
  (filename . "~/Radovi/Org/Wikidev/RPi.org")
  (front-context-string)
@@ -18,22 +28,22 @@
  (rear-context-string)
  (position . 1))
 ("cpp-custom-build"
- (filename . "c:/Users/darko/Radovi/Org/Wikidev/cpp.org")
+ (filename . "~/Radovi/Org/Wikidev/cpp.org")
  (front-context-string . "* custom build\n\n")
  (rear-context-string . " WINAPI, etc. \n\n")
  (position . 11137))
 ("cloudberrie_processor.org"
- (filename . "c:/Users/darko/Radovi/Org/Wikidev/Projects/Haptiq/cloudberrie_processor.org")
+ (filename . "~/Radovi/Org/Wikidev/Projects/Haptiq/cloudberrie_processor.org")
  (front-context-string . "* test files\n** ")
  (rear-context-string . "-metadata=.xyz\n\n")
  (position . 6069))
 ("Projekti-Leibniz"
- (filename . "c:/Users/darko/Radovi/Org/Wikith/Projekti/LeibnizLogicCalculus/LeibnizLogicCalculus.org")
+ (filename . "~/Radovi/Org/Wikith/Projekti/LeibnizLogicCalculus/LeibnizLogicCalculus.org")
  (front-context-string . "#+TITLE:  Leibni")
  (rear-context-string)
  (position . 1))
 ("Projekti-Spinoza"
- (filename . "c:/Users/darko/Radovi/Org/Wikith/Projekti/Spinoza/Spinoza.org")
+ (filename . "~/Radovi/Org/Wikith/Projekti/Spinoza/Spinoza.org")
  (front-context-string . "#+TITLE: \n\n* Tod")
  (rear-context-string)
  (position . 1))
@@ -43,7 +53,7 @@
  (rear-context-string . "  0 03-14 07:59 ")
  (position . 234))
 ("Lovr.org"
- (filename . "c:/Users/darko/Radovi/Org/Wikidev/Projects/Lovr.org")
+ (filename . "~/Radovi/Org/Wikidev/Projects/Lovr.org")
  (front-context-string)
  (rear-context-string)
  (position . 16))
@@ -58,7 +68,7 @@
  (rear-context-string . ";;;;;;;;;;;;;;;\n")
  (position . 15285))
 ("graphics.org"
- (filename . "c:/Users/darko/Radovi/Org/Wikidev/graphics.org")
+ (filename . "~/Radovi/Org/Wikidev/graphics.org")
  (front-context-string . ":PROPERTIES:\n:ID")
  (rear-context-string)
  (position . 1))
@@ -510,7 +520,7 @@
  (rear-context-string . "();\n#+END_SRC \n\n")
  (position . 12667))
 ("CG.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/CG.org")
+ (filename . "~/Radovi/Org/Wikidev/Projects/CG/CG.org")
  (front-context-string . "#+TITLE: CG\n\n* R")
  (rear-context-string)
  (position . 1))
