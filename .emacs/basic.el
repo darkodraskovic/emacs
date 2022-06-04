@@ -58,7 +58,7 @@
 ; (global-set-key (kbd "<return>") 'newline-and-indent)
 
 ;; cf. https://www.gnu.org/software/emacs/manual/html_node/elisp/Attribute-Functions.html
-(set-face-attribute 'default nil :height 108)
+(set-face-attribute 'default nil :height 120)
 
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;
@@ -114,7 +114,7 @@ With negative N, comment out original line and use the absolute value."
 
 (require 'package)
 (setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
+      '(;("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 

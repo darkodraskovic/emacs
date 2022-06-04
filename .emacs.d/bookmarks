@@ -2,11 +2,46 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("c64"
- (filename . "~/Radovi/Org/Wikidev/6502.org")
- (front-context-string . "* c64\n\n** resour")
+(("RPi"
+ (filename . "c:/Users/darko/Radovi/RPi/")
+ (front-context-string . "  c:/Users/darko")
  (rear-context-string)
- (position . 16))
+ (position . 1))
+("amiga-configs"
+ (filename . "~/Radovi/RPi/games/amiga/configs/")
+ (front-context-string . "a1200_00.fs-uae\n")
+ (rear-context-string . "76 Jun 20 14:06 ")
+ (position . 238))
+("Linux.org"
+ (filename . "~/Radovi/Org/Wikidev/Linux.org")
+ (front-context-string . "* Installations\n")
+ (rear-context-string . "#+TITLE: Linux\n\n")
+ (position . 17))
+("cloudberrie-processor-dd"
+ (filename . "c:/Users/darko/Development/cloudberrie-processor-dd/")
+ (front-context-string . "  c:/Users/darko")
+ (rear-context-string)
+ (position . 1))
+("Wikith"
+ (filename . "~/Radovi/Org/Wikith/")
+ (front-context-string . "  c:/Users/darko")
+ (rear-context-string)
+ (position . 1))
+("Wikidev"
+ (filename . "~/Radovi/Org/Wikidev/")
+ (front-context-string . "  c:/Users/darko")
+ (rear-context-string)
+ (position . 1))
+("Git.org"
+ (filename . "~/Radovi/Org/Wikidev/Git.org")
+ (front-context-string . "\n\n** github-reco")
+ (rear-context-string . "uCdFvhCkEB4MgYdh")
+ (position . 6944))
+("c64"
+ (filename . "~/Radovi/RPi/games/C64/")
+ (front-context-string . "apps\n  drwxrwxrw")
+ (rear-context-string . "096 06-08 20:39 ")
+ (position . 229))
 ("Projects"
  (filename . "~/Radovi/Org/Wikidev/Projects/")
  (front-context-string . "  /home/darko/Ra")
@@ -23,7 +58,7 @@
  (rear-context-string)
  (position . 1))
 ("raylib-procgen.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/CG/raylib-procgen.org")
+ (filename . "~/Org/Wikidev/Projects/CG/raylib-procgen.org")
  (front-context-string . "#+TITLE: raylib-")
  (rear-context-string)
  (position . 1))
@@ -53,7 +88,7 @@
  (rear-context-string . " WINAPI, etc. \n\n")
  (position . 11137))
 ("cloudberrie_processor.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/Haptiq/cloudberrie_processor.org")
+ (filename . "~/Radovi/Org/Wikidev/Projects/cloudberrie/cloudberrie-processor-cpp.org")
  (front-context-string . "* test files\n** ")
  (rear-context-string . "-metadata=.xyz\n\n")
  (position . 6069))
@@ -137,11 +172,6 @@
  (front-context-string . "** [#A] Informat")
  (rear-context-string . ", egzistencija\n\n")
  (position . 2821))
-("Haptiq"
- (filename . "~/Radovi/Org/Wikidev/Projects/Haptiq/")
- (front-context-string)
- (rear-context-string . " 25 08-31 10:39 ")
- (position . 239))
 ("mingw64"
  (filename . "c:/msys64/mingw64/")
  (front-context-string . "bin\n  drwxrwxrwx")
@@ -153,12 +183,12 @@
  (rear-context-string)
  (position . 1))
 ("Win-Development"
- (filename . "~/Development/")
+ (filename . "c:/Users/darko/Development/")
  (front-context-string . "algostruct\n  drw")
  (rear-context-string . "096 08-15 13:05 ")
  (position . 229))
 (".emacs-win"
- (filename . "c:/Users/darko/Radovi/Linux/.emacs/win.el")
+ (filename . "~/Radovi/Linux/.emacs/win.el")
  (front-context-string . "(when (string-eq")
  (rear-context-string)
  (position . 1))
@@ -426,269 +456,11 @@
  (position . 81))
 (".emacs-font"
  (filename . "~/Radovi/Linux/.emacs/basic.el")
+ <<<<<<< HEAD
  (front-context-string . "\n\n;;;;;;;;;;;;;;")
  (rear-context-string . "nil :height 120)")
  (position . 1425))
-("Java.org"
- (filename . "~/Radovi/Org/Wikidev/Java.org")
- (front-context-string . "#+TITLE: Java\n\n*")
- (rear-context-string)
- (position . 1))
-(".emacs-java"
- (filename . "~/.emacs")
- (front-context-string . ";; JAVA ;;\n;;;;;")
- (rear-context-string . "te)\n\n;;;;;;;;;;\n")
- (position . 23160))
-(".emacs-projectile"
- (filename . "~/Radovi/Linux/.emacs/.emacs")
- (front-context-string . "PROJECTILE ;;\n;;")
- (rear-context-string . ";;;;;;;;;;;;\n;; ")
- (position . 8902))
-(".emacs"
- (filename . "~/Radovi/Linux/.emacs/.emacs")
- (front-context-string . ";;;;;;;;;\n;; VAR")
- (rear-context-string)
- (position . 1))
-("CMake.org"
- (filename . "~/Radovi/Org/Wikidev/CMake.org")
- (front-context-string . "#+TITLE: CMake\n\n")
- (rear-context-string)
- (position . 1))
-("snippets-c++"
- (filename . "~/Radovi/Org/.emacs.d/snippets/c++-mode/")
- (front-context-string . "u3cmp\n  -rwxrwxr")
- (rear-context-string . "95 апр  3 13:41 ")
- (position . 243))
-("Roguelike.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/Roguelike/Roguelike.org")
- (front-context-string . "#+TITLE: Rogueli")
- (rear-context-string)
- (position . 1))
-("Urho3D-Source"
- (filename . "c:/Users/darko/Documents/Urho3D/Source/Urho3D/")
- (front-context-string . "AngelScript\n  dr")
- (rear-context-string . "576 02-16 15:53 ")
- (position . 240))
-("Urho3D-Samples"
- (filename . "~/Documents/Urho3D/Source/Samples/")
- (front-context-string . "01_HelloWorld\n  ")
- (rear-context-string . "96 Jan  7 09:47 ")
- (position . 243))
-("Urho3D.org"
- (filename . "~/Radovi/Org/Wikidev/Urho3D.org")
- (front-context-string . "#+TITLE: Urho3D\n")
- (rear-context-string)
- (position . 1))
-("Urho3D"
- (filename . "~/Programs/Urho3D/")
- (front-context-string . ".\n  drwxrwxr-x 1")
- (rear-context-string . "96 Jan 10 16:25 ")
- (position . 132))
-("Opengl.org"
- (filename . "~/Radovi/Org/Wikidev/Opengl.org")
- (front-context-string . "#+TITLE: OpenGL\n")
- (rear-context-string)
- (position . 1))
-("Processing.org"
- (filename . "~/Radovi/Org/Wikidev/Processing.org")
- (front-context-string . "#+TITLE: Process")
- (rear-context-string)
- (position . 1))
-("Projekti-Logistika"
- (filename . "~/Radovi/Org/Wikith/Projekti/Logistika/Logistika.org")
- (front-context-string . "#+TITLE: Thinkin")
- (rear-context-string)
- (position . 1))
-("Python.org"
- (filename . "~/Radovi/Org/Wikidev/Python.org")
- (front-context-string . "#+TITLE: Python\n")
- (rear-context-string)
- (position . 1))
-("scratchpad.org"
- (filename . "~/Radovi/Org/Wikidev/scratchpad.org")
- (front-context-string)
- (rear-context-string . "94-b2aaf9f26c1a\n")
- (position . 38))
-("Lektira.bib"
- (filename . "~/Radovi/Org/Wikith/Rezimei/Lektira.bib")
- (front-context-string . "\n@InCollection{b")
- (rear-context-string)
- (position . 1))
-("Reference.bib"
- (filename . "~/Radovi/Org/Wikith/Resursi/Reference.bib")
- (front-context-string . "@book{Gadamer200")
- (rear-context-string)
- (position . 1))
-(".tmux.conf"
- (filename . "~/Radovi/Linux/.tmux.conf")
- (front-context-string . "bind -n S-Left s")
- (rear-context-string . " without prefix\n")
- (position . 404))
-("snippets"
- (filename . "~/.emacs.d/snippets/")
- (front-context-string . "  /home/darko/.e")
- (rear-context-string)
- (position . 1))
-("CG-GenArt"
- (filename . "~/Radovi/Org/Wikidev/Projects/CG.org")
- (front-context-string . "* GenArt\n* ProcG")
- (rear-context-string . "atspace.co.uk/\n\n")
- (position . 2386))
-("CG-Todo"
- (filename . "~/Radovi/Org/Wikidev/Projects/CG.org")
- (front-context-string . "* Todo          ")
- (rear-context-string . "();\n#+END_SRC \n\n")
- (position . 12667))
-("CG.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/CG/CG.org")
- (front-context-string . "#+TITLE: CG\n\n* R")
- (rear-context-string)
- (position . 1))
-("Organizer-Todo"
- (filename . "~/Radovi/Org/Wikith/Projekti/Organizer.org")
- (front-context-string . "* Todo\n** TODO P")
- (rear-context-string . "uts/index.html\n\n")
- (position . 2558))
-("TaiChi.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/TaiChi.org")
- (front-context-string . "** SECTION ONE (")
- (rear-context-string . "NTS - 1 30:15\n\n\n")
- (position . 117))
-("Elisp"
- (front-context-string . "3.11 Review\n====")
- (rear-context-string . "Writing Defuns\n\n")
- (position . 154151)
- (filename . "/usr/share/info/eintr")
- (info-node . "Review")
- (handler . Info-bookmark-jump))
-("org-mode-dict"
- (filename . "~/Radovi/Org/Dict/org-mode")
- (front-context-string . "@AristotelKontin")
- (rear-context-string)
- (position . 1))
-("Rezimei-Literatura"
- (filename . "~/Radovi/Org/Wikith/Rezimei/Literatura/")
- (front-context-string . "Adams Douglas.or")
- (rear-context-string . "48 Feb 13  2018 ")
- (position . 243))
-("Organizer.org"
- (filename . "~/Radovi/Org/Wikith/Projekti/Organizer.org")
- (front-context-string . "#+TITLE: Organiz")
- (rear-context-string)
- (position . 1))
-("Wikidev"
- (filename . "~/Radovi/Org/Wikidev/")
- (front-context-string . "Elisp.org\n  -rw-")
- (rear-context-string . "40 Feb 13  2018 ")
- (position . 231))
-("VideoGAmes-Analyses"
- (filename . "~/Radovi/Org/Wikith/Rezimei/VideoGames/Games/VAR.org")
- (front-context-string)
- (rear-context-string . "other genres.  \n")
- (position . 35313))
-("Projekti-Continuum"
- (filename . "~/Radovi/Org/Wikith/Projekti/Continuum/Continuum.org")
- (front-context-string . "#+TITLE: Continu")
- (rear-context-string)
- (position . 1))
-("Rezimei-Filozofija"
- (filename . "~/Radovi/Org/Wikith/Rezimei/Filozofija/")
- (front-context-string . "Adorno - Dialect")
- (rear-context-string . "00 Feb 13  2018 ")
- (position . 249))
-("Projekti-Complexity"
- (filename . "~/Radovi/Org/Wikith/Projekti/Complexity/Complexity.org")
- (front-context-string . "#+TITLE: Complex")
- (rear-context-string)
- (position . 1))
-("Projekti-SF"
- (filename . "~/Radovi/Org/Wikith/Projekti/SF/SF.org")
- (front-context-string . "#+TITLE: SF\n#+TI")
- (rear-context-string)
- (position . 1))
-("Rezimei"
- (filename . "~/Radovi/Org/Wikith/Rezimei/")
- (front-context-string . "Filozofija\n  -rw")
- (rear-context-string . "76 авг 26 13:45 ")
- (position . 233))
-("Blog.org"
- (filename . "~/Radovi/Org/Wikith/Projekti/Blog_01.org")
- (front-context-string)
- (rear-context-string)
- (position . 1))
-("Meta.org"
- (filename . "~/Radovi/Org/Wikith/Projekti/Meta.org")
- (front-context-string . "* Tagovi projeka")
- (rear-context-string . "eferences.bib\n\n\n")
- (position . 182))
-(".bashrc"
- (filename . "~/.bashrc")
- (front-context-string . "\nexport PATH=$PA")
- (rear-context-string . "OBIN=$GOPATH/bin")
- (position . 3829))
-("Ideje.org"
- (filename . "~/Radovi/Org/Wikith/Ideje/Ideje_03.org")
- (front-context-string . "#+TITLE: Ideje\n\n")
- (rear-context-string)
- (position . 1))
-("Projekti"
- (filename . "~/Radovi/Org/Wikith/Projekti/")
- (front-context-string . "Blogs-eBooks-Sit")
- (rear-context-string . " août  17 19:17 ")
- (position . 239))
-("teza"
- (filename . "~/Radovi/Org/Wikith/Projekti/Doktorski/Teza/essay/DarkoDraskovic-DescartesMechanism.org")
- (front-context-string . "#+TITLE:  Descar")
- (rear-context-string)
- (position . 1))
-("Citati"
- (filename . "~/Radovi/Org/Wikith/Citati/")
- (front-context-string . "tizam.org\n  -rw-")
- (rear-context-string . "  5 14:00 adekva")
- (position . 244))
-("Resursi"
- (filename . "~/Radovi/Org/Wikith/Resursi/")
- (front-context-string . "Filmovi.org\n  -r")
- (rear-context-string . " août  17 16:18 ")
- (position . 238))
-("AppDev"
- (filename . "~/Radovi/AppDev/")
- (front-context-string . "Construct 2\n  dr")
- (rear-context-string . " août  15 14:26 ")
- (position . 230))
-("Git.org"
- (filename . "~/Radovi/Org/Wikidev/Git.org")
- (front-context-string . "personal [2021-0")
- (rear-context-string . "_interview.git\n\n")
- (position . 6905))
-("Emacs.org"
- (filename . "~/Radovi/Org/Wikidev/Emacs.org")
- (front-context-string . "#+TITLE: Emacs\n\n")
- (rear-context-string)
- (position . 1))
-("Linux.org"
- (filename . "~/Radovi/Org/Wikidev/Linux.org")
- (front-context-string . "* Commands & Pro")
- (rear-context-string . "#+TITLE: Linux\n\n")
- (position . 17))
-("yasnippets"
- (filename . "~/.emacs.d/snippets/")
- (front-context-string . "cc-mode\n  drwxrw")
- (rear-context-string . "96 Dec  6 10:26 ")
- (position . 246))
-("my_emacs_abbrev.el"
- (filename . "~/Radovi/Org/Dict/my_emacs_abbrev.el")
- (front-context-string . ";; sample use of")
- (rear-context-string)
- (position . 1))
-("Dict"
- (filename . "~/Radovi/Org/Dict/")
- (front-context-string . "HashTagsExtracti")
- (rear-context-string . "96 Nov 28 14:33 ")
- (position . 224))
-("Wikith"
- (filename . "~/Radovi/Org/Wikith/")
- (front-context-string . "Adams - Autostop")
- (rear-context-string . "68 Nov 14 15:47 ")
- (position . 231))
+=======(front-context-string . "\n\n;; turn off ba")
+(rear-context-string . "nil :height 108)")
+(position . 138)
 )

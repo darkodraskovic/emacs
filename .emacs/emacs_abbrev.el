@@ -19,6 +19,7 @@
     ("7cs" "#+BEGIN_SRC csharp\n\n#+END_SRC")
     ("7asm" "#+BEGIN_SRC asm\n\n#+END_SRC")
     ("7sql" "#+BEGIN_SRC sql\n\n#+END_SRC")
+    ("7bas" "#+BEGIN_SRC basic\n\n#+END_SRC")
     
     ("7c" "#+BEGIN_COMMENT\n\n#+END_COMMENT")
     ("7ct" "#+BEGIN_COMMENT\n- @todo cf.\n#+END_COMMENT")

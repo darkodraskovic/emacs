@@ -1,8 +1,8 @@
 (when (string-equal system-type "windows-nt")
   (let ((winpaths
          '(
-           "C:/Python39/"
-           "C:/Python39/Scripts"
+           "C:/Users/darko/AppData/Local/Programs/Python/Python310"
+           "C:/Users/darko/AppData/Local/Programs/Python/Python310/Scripts"
            "C:/Program Files/nodejs/"
            "C:/Users/darko/AppData/Roaming/npm/"
            "C:/ProgramData/chocolatey/bin/"
@@ -17,12 +17,12 @@
            "C:/msys64/usr/bin/"
 
            "C:/Program Files/WinUAE"
-           "C:/Program Files/Microsoft/jdk-17.0.2.8-hotspot/bin/"
+           "C:/Program Files/Microsoft/jdk-17.0.3.7-hotspot/bin/"
            ))
         )
     ;; PATH is used by emacs when you are running a shell in emacs
     (setenv "PATH" (mapconcat 'identity winpaths ";"))
-    (setenv "URHO3D_HOME" "c:/Users/darko/.urho3d/msvc")
+    (setenv "URHO3D_HOME" "c:/Users/darko/.urho3d")
     ;; exec-path is used by emacs itself to find programs
     (setq exec-path (append winpaths (list "." exec-directory))))
   ;; (w32-register-hot-key [s-]) with w32-lwindow-modifier bound to super
