@@ -17,6 +17,7 @@
            "C:/msys64/usr/bin/"
 
            "C:/Program Files/WinUAE"
+           "C:/Program Files/Microsoft/jdk-17.0.2.8-hotspot/bin/"
            ))
         )
     ;; PATH is used by emacs when you are running a shell in emacs

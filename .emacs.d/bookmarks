@@ -2,8 +2,28 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("raylib-procgen.org"
- (filename . "c:/Users/darko/Radovi/Org/Wikidev/Projects/CG/raylib-procgen.org")
+(("c64"
+ (filename . "~/Radovi/Org/Wikidev/6502.org")
+ (front-context-string . "* c64\n\n** resour")
+ (rear-context-string)
+ (position . 16))
+("Projects"
+ (filename . "~/Radovi/Org/Wikidev/Projects/")
+ (front-context-string . "  /home/darko/Ra")
+ (rear-context-string)
+ (position . 1))
+("roamlib.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/CG/roamlib.org")
+ (front-context-string . "#+TITLE: roamlib")
+ (rear-context-string)
+ (position . 1))
+("Trikonasana.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/CG/Trikonasana.org")
+ (front-context-string . "#+TITLE: Trikona")
+ (rear-context-string)
+ (position . 1))
+("raylib-procgen.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/CG/raylib-procgen.org")
  (front-context-string . "#+TITLE: raylib-")
  (rear-context-string)
  (position . 1))
@@ -138,10 +158,10 @@
  (rear-context-string . "096 08-15 13:05 ")
  (position . 229))
 (".emacs-win"
- (filename . "~/Radovi/Linux/.emacs/.emacs")
- (front-context-string . ";; WIN ;;\n;;;;;;")
- (rear-context-string . "\n  )\n\n;;;;;;;;;\n")
- (position . 20007))
+ (filename . "c:/Users/darko/Radovi/Linux/.emacs/win.el")
+ (front-context-string . "(when (string-eq")
+ (rear-context-string)
+ (position . 1))
 ("bookmark.org"
  (filename . "~/Radovi/Org/bookmark.org")
  (front-context-string . "#+TITLE: Bookmar")
@@ -338,10 +358,10 @@
  (rear-context-string)
  (position . 1))
 ("6502.org"
- (filename . "~/Radovi/Org/Wikidev/Notes/6502/6502.org")
- (front-context-string . "#+TITLE: Learn A")
+ (filename . "~/Radovi/Org/Wikidev/6502.org")
+ (front-context-string . "* c64\n\n** resour")
  (rear-context-string)
- (position . 1))
+ (position . 16))
 (".emacs-typescript"
  (filename . "~/Radovi/Linux/.emacs/.emacs")
  (front-context-string . ";; JAVASCRIPT/TY")
@@ -405,10 +425,10 @@
  (rear-context-string . "D:\n#+title: cpp\n")
  (position . 81))
 (".emacs-font"
- (filename . "~/Radovi/Linux/.emacs/.emacs")
- (front-context-string . "\n\n(use-package d")
+ (filename . "~/Radovi/Linux/.emacs/basic.el")
+ (front-context-string . "\n\n;;;;;;;;;;;;;;")
  (rear-context-string . "nil :height 120)")
- (position . 3965))
+ (position . 1425))
 ("Java.org"
  (filename . "~/Radovi/Org/Wikidev/Java.org")
  (front-context-string . "#+TITLE: Java\n\n*")

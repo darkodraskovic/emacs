@@ -58,7 +58,7 @@
 ; (global-set-key (kbd "<return>") 'newline-and-indent)
 
 ;; cf. https://www.gnu.org/software/emacs/manual/html_node/elisp/Attribute-Functions.html
-(set-face-attribute 'default nil :height 116)
+(set-face-attribute 'default nil :height 108)
 
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;

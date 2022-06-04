@@ -44,6 +44,15 @@
   :hook (sh-mode . display-line-numbers-mode)
   )
 
+;;;;;;;;;;;
+;; basic ;;
+;;;;;;;;;;;
+
+(use-package basic-mode
+  :ensure t  
+  :hook (basic-mode . display-line-numbers-mode)
+  )
+
 ;;;;;;;;;;;;;;;;
 ;; CPP        ;;
 ;;;;;;;;;;;;;;;;

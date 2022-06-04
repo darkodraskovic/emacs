@@ -79,6 +79,6 @@
   :ensure t
   :init
   (setq which-key-idle-delay 0.5)
-  :config
-  (which-key-mode)
+  ;; :config
+  ;; (which-key-mode)
   )
