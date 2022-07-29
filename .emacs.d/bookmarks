@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("RPi"
+(("Rezimei-Filozofija"
+ (filename . "~/Radovi/Org/Wikith/Rezimei/Filozofija/")
+ (front-context-string . "Adorno - Dialect")
+ (rear-context-string . "02 Nov 27  2021 ")
+ (position . 253))
+("Rezimei"
+ (filename . "~/Radovi/Org/Wikith/Rezimei/")
+ (front-context-string . "Film\n  drwxrwxr-")
+ (rear-context-string . "96 Jun 17 21:37 ")
+ (position . 238))
+("RPi"
  (filename . "c:/Users/darko/Radovi/RPi/")
  (front-context-string . "  c:/Users/darko")
  (rear-context-string)

@@ -30,10 +30,10 @@
 
     ("4q" "@QUOTE")
     ("4f" "@FORTE")
+    ("4i" "@IDEA")
     ("4p" "@IMPORTANT")
     ("4s" "@SUMMARY")
     ("4c" "@COMMENT")
-    ("4i" "@IDEA")
     ("4b" "@BIBLIO")
 
     ("4t" "@TODO")

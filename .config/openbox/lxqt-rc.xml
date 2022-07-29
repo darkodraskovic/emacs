@@ -200,18 +200,18 @@
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="C-A-Up">
-      <action name="GoToDesktop">
-        <to>up</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="C-A-Down">
-      <action name="GoToDesktop">
-        <to>down</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
+    <!-- <keybind key="C-A-Up"> -->
+    <!--   <action name="GoToDesktop"> -->
+    <!--     <to>up</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="C-A-Down"> -->
+    <!--   <action name="GoToDesktop"> -->
+    <!--     <to>down</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <keybind key="C-S-A-Left">
       <action name="SendToDesktop">
         <to>left</to>
@@ -224,18 +224,18 @@
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="C-S-A-Up">
-      <action name="SendToDesktop">
-        <to>up</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="C-S-A-Down">
-      <action name="SendToDesktop">
-        <to>down</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
+    <!-- <keybind key="C-S-A-Up"> -->
+    <!--   <action name="SendToDesktop"> -->
+    <!--     <to>up</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <!-- <keybind key="C-S-A-Down"> -->
+    <!--   <action name="SendToDesktop"> -->
+    <!--     <to>down</to> -->
+    <!--     <wrap>no</wrap> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <!-- Keybindings for windows -->
     <keybind key="A-F4">
       <action name="Close"/>
@@ -262,6 +262,7 @@
         <allDesktops>no</allDesktops>
       </action>
     </keybind>
+    
     <!-- darko -->
     <keybind key="A-S-Tab">
       <action name="PreviousWindow">
@@ -273,6 +274,7 @@
         <allDesktops>no</allDesktops>
       </action>
     </keybind>
+    
     <!-- darko -->
     <!-- Keybindings for window switching with the arrow keys -->
     <!-- <keybind key="A-S-Right"> -->
@@ -296,11 +298,11 @@
     <!--   </action> -->
     <!-- </keybind> -->
     <!-- Keybindings to toggle fullscreen -->
-    <keybind key="F11">
-      <action name="ToggleFullscreen"/>
-    </keybind>
+    <!-- <keybind key="F11"> -->
+    <!--   <action name="ToggleFullscreen"/> -->
+    <!-- </keybind> -->
     
-    <!-- Darko -->
+    <!-- darko -->
     <!-- window tiling -->
     <keybind key="W-Up">        # FullScreen
       <action name="Maximize"/>
@@ -336,6 +338,7 @@
     <screenEdgeWarpMouse>false</screenEdgeWarpMouse>
     <!-- Set this to TRUE to move the mouse pointer across the desktop when
          switching due to hitting the edge of the screen -->
+
     <!-- darko -->
     <!-- <context name="Frame"> -->
     <!--   <mousebind button="A-Left" action="Press"> -->
@@ -420,6 +423,7 @@
     <!--     </action> -->
     <!--   </mousebind> -->
     <!-- </context> -->
+
     <context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">
       <mousebind button="Left" action="Press">
         <action name="Focus"/>
