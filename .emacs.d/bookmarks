@@ -2,7 +2,77 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Rezimei-Filozofija"
+((".emacs"
+ (filename . "~/Radovi/Linux/.emacs/")
+ (front-context-string . "  /home/darko/Ra")
+ (rear-context-string)
+ (position . 1))
+("Meta.org-Projekti"
+ (filename . "~/Radovi/Org/Wikith/Projekti/Meta.org")
+ (front-context-string . "** @ - Projekti\n")
+ (rear-context-string . "LIZA\n_TERAPIJA\n\n")
+ (position . 407))
+("Nannou.org"
+ (filename . "~/Radovi/Org/Wikidev/Nannou.org")
+ (front-context-string)
+ (rear-context-string . "+TITLE: Nannou\n\n")
+ (position . 18))
+(".emacs-rust"
+ (filename . "~/Radovi/Linux/.emacs/prog-lang-ex.el")
+ (front-context-string . ";; RUST ;;\n;;;;;")
+ (rear-context-string . "  )\n\n;;;;;;;;;;\n")
+ (position . 3373))
+("ConfidentialComputing.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Ultraviolet/ConfidentialComputing.org")
+ (front-context-string . "#+TITLE: Confide")
+ (rear-context-string)
+ (position . 1))
+("emacs_abbrev.el"
+ (filename . "~/Radovi/Linux/.emacs/emacs_abbrev.el")
+ (front-context-string . "(define-abbrev-t")
+ (rear-context-string)
+ (position . 1))
+("emacs-prog-lang.el"
+ (filename . "~/Radovi/Linux/.emacs/prog-lang.el")
+ (front-context-string . ";;;;;;;;;;;\n;; m")
+ (rear-context-string)
+ (position . 1))
+("prog-lang-ex.el"
+ (filename . "~/Radovi/Linux/.emacs/prog-lang-ex.el")
+ (front-context-string . ";;;;;;;;;;;;;;;\n")
+ (rear-context-string)
+ (position . 1))
+("ultravioletrs-go"
+ (filename . "~/go/src/github.com/ultravioletrs/")
+ (front-context-string . "clients\n  drwxrw")
+ (rear-context-string . "96 Dec  5 09:20 ")
+ (position . 243))
+("SQL.org"
+ (filename . "~/Radovi/Org/Wikidev/SQL.org")
+ (front-context-string . "#+TITLE:  Sql\n\n*")
+ (rear-context-string)
+ (position . 1))
+("rust.org"
+ (filename . "~/Radovi/Org/Wikidev/rust.org")
+ (front-context-string . "#+TITLE: rust\n\n*")
+ (rear-context-string)
+ (position . 1))
+("Ultraviolet"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Ultraviolet/")
+ (front-context-string . "Admin.org\n  -rwx")
+ (rear-context-string . "08 Oct 30 11:41 ")
+ (position . 245))
+(".emacs-org-mode"
+ (filename . "~/Radovi/Linux/.emacs/org-mode.el")
+ (front-context-string . ";;;;;;;;;;;;;;\n;")
+ (rear-context-string)
+ (position . 1))
+("Emcas-Org-mode.org"
+ (filename . "~/Radovi/Org/Wikidev/Emcas-Org-mode.org")
+ (front-context-string . "#+TITLE:  Org-mo")
+ (rear-context-string)
+ (position . 1))
+("Rezimei-Filozofija"
  (filename . "~/Radovi/Org/Wikith/Rezimei/Filozofija/")
  (front-context-string . "Adorno - Dialect")
  (rear-context-string . "02 Nov 27  2021 ")
@@ -13,7 +83,7 @@
  (rear-context-string . "96 Jun 17 21:37 ")
  (position . 238))
 ("RPi"
- (filename . "c:/Users/darko/Radovi/RPi/")
+ (filename . "~/Radovi/RPi/")
  (front-context-string . "  c:/Users/darko")
  (rear-context-string)
  (position . 1))
@@ -28,7 +98,7 @@
  (rear-context-string . "#+TITLE: Linux\n\n")
  (position . 17))
 ("cloudberrie-processor-dd"
- (filename . "c:/Users/darko/Development/cloudberrie-processor-dd/")
+ (filename . "~/Development/cloudberrie-processor-dd/")
  (front-context-string . "  c:/Users/darko")
  (rear-context-string)
  (position . 1))
@@ -108,12 +178,12 @@
  (rear-context-string)
  (position . 1))
 ("Projekti-Spinoza"
- (filename . "~/Radovi/Org/Wikith/Projekti/Spinoza/Spinoza.org")
- (front-context-string . "#+TITLE: \n\n* Tod")
+ (filename . "~/Radovi/Org/Wikith/Projekti/Racionalizam/Spinoza/Spinoza.org")
+ (front-context-string . "#+TITLE: Spinoza")
  (rear-context-string)
  (position . 1))
 ("Cinder-samples"
- (filename . "c:/Users/darko/Documents/Cinder/samples/")
+ (filename . "~/Documents/Cinder/samples/")
  (front-context-string . "_AllSamples\n  dr")
  (rear-context-string . "  0 03-14 07:59 ")
  (position . 234))
@@ -408,7 +478,7 @@
  (rear-context-string . ";;;;;;;;;;;;;;;\n")
  (position . 13183))
 ("Careers.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/GameDev/Careers.org")
+ (filename . "~/Radovi/Org/Wikidev/Projects/Projects.org")
  (front-context-string . "#+TITLE: Careers")
  (rear-context-string)
  (position . 1))
@@ -455,10 +525,10 @@
  (rear-context-string . ";;;;;;;;;;;;\n;; ")
  (position . 11694))
 (".emacs-lsp"
- (filename . "~/Radovi/Linux/.emacs/.emacs")
+ (filename . "~/Radovi/Linux/.emacs/prog-lang.el")
  (front-context-string . ";; LSP-MODE ;;\n;")
  (rear-context-string . "\n;;;;;;;;;;;;;;\n")
- (position . 10720))
+ (position . 89))
 ("org-capture-last-stored"
  (filename . "~/Radovi/Org/Roam/20210929171430-cpp.org")
  (front-context-string)
@@ -466,9 +536,8 @@
  (position . 81))
 (".emacs-font"
  (filename . "~/Radovi/Linux/.emacs/basic.el")
- <<<<<<< HEAD
  (front-context-string . "\n\n;;;;;;;;;;;;;;")
- (rear-context-string . "nil :height 120)")
+ (rear-context-string . "nil :height 108)")
  (position . 1425))
 =======(front-context-string . "\n\n;; turn off ba")
 (rear-context-string . "nil :height 108)")

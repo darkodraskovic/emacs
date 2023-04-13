@@ -121,3 +121,11 @@ fi
 ################################################################
 
 source ~/Radovi/Linux/.bashdd 
+. "$HOME/.cargo/env"
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"
+# Wasmer
+export WASMER_DIR="/home/darko/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

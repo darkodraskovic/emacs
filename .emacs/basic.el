@@ -5,7 +5,7 @@
 ;; (setq package-check-signature nil)
 
 (blink-cursor-mode 0)
-(set-face-attribute 'default nil :height 108)
+(set-face-attribute 'default nil :height 104)
 
 ;; turn off bars
 (menu-bar-mode 0)
@@ -58,7 +58,7 @@
 ; (global-set-key (kbd "<return>") 'newline-and-indent)
 
 ;; cf. https://www.gnu.org/software/emacs/manual/html_node/elisp/Attribute-Functions.html
-(set-face-attribute 'default nil :height 108)
+(set-face-attribute 'default nil :height 120)
 
 ;;;;;;;;;;;;;;;;
 ;; COMMANDS   ;;
@@ -95,6 +95,12 @@ With negative N, comment out original line and use the absolute value."
         (forward-line 1)
         (forward-char pos)))))
 
+;; Source: https://www.emacswiki.org/emacs/misc-cmds.el
+(defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive)
+    (revert-buffer :ignore-auto :noconfirm))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GLOBAL KEYBINDINGS ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -113,10 +119,10 @@ With negative N, comment out original line and use the absolute value."
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (require 'package)
-(setq package-archives
-      '(;("gnu" . "http://elpa.gnu.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")))
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+(package-refresh-contents)
 
 (require 'use-package)
 
@@ -151,7 +157,7 @@ With negative N, comment out original line and use the absolute value."
 (use-package helm
   :ensure t
   :init
-  (require 'helm-config)
+  ;; (require 'helm-config)
   (helm-mode t)
 )
 
@@ -171,8 +177,8 @@ With negative N, comment out original line and use the absolute value."
 (global-set-key (kbd "M-s o") 'helm-occur)
 
 ;; sudo apt install silversearcher-ag
-;; (setq helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s")
-(setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
+(setq helm-grep-ag-command "ag --line-numbers -S --hidden --color --color-match '31;43' --nogroup %s %s %s")
+;; (setq helm-grep-ag-command "rg --color=always --smart-case --no-heading --line-number %s %s %s")
 (setq helm-grep-ag-pipe-cmd-switches '("--color-match '31;43'"))
 (global-set-key (kbd "M-g a") 'helm-do-grep-ag)
 
@@ -180,14 +186,14 @@ With negative N, comment out original line and use the absolute value."
 (global-unset-key (kbd "C-c h /"))
 (global-set-key (kbd "M-g f") 'helm-find)
 
-;; ido-mode + helm
-(add-to-list 'helm-completing-read-handlers-alist '(find-file . ido))
-(add-to-list 'helm-completing-read-handlers-alist '(switch-to-buffer . ido))
-(add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . ido))
+;; ;; ido-mode + helm
+;; (add-to-list 'helm-completing-read-handlers-alist '(find-file . ido))
+;; (add-to-list 'helm-completing-read-handlers-alist '(switch-to-buffer . ido))
+;; (add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . ido))
 
-(add-to-list 'helm-completing-read-handlers-alist '(dired-do-copy . ido))
-(add-to-list 'helm-completing-read-handlers-alist '(dired-do-rename . ido))
-(add-to-list 'helm-completing-read-handlers-alist '(dired-create-directory . ido))
+;; (add-to-list 'helm-completing-read-handlers-alist '(dired-do-copy . ido))
+;; (add-to-list 'helm-completing-read-handlers-alist '(dired-do-rename . ido))
+;; (add-to-list 'helm-completing-read-handlers-alist '(dired-create-directory . ido))
 
 (setq helm-grep-truncate-lines nil)
 (setq helm-moccur-truncate-lines nil)

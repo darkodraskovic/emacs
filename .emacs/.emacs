@@ -15,8 +15,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("~/Radovi/Org/Wikith/Projekti/Racionalizam/Spinoza/Spinoza.org" "/home/darko/Radovi/Org/Wikith/Projekti/Organizer.org" "/home/darko/Radovi/Org/Wikidev/Projects/Haptiq/Haptiq.org"))
  '(package-selected-packages
-   '(ox-pandoc company-prescient sh sh-mode shell-script dap-mode glsl-mode ein clang-format ebib doom-modeline doom-modline doom-themes wrap-region which-key web-mode use-package typescript-mode sml-mode rust-mode rjsx-mode pyvenv python-mode org-roam org-ref move-text magit lua-mode lsp-ui lsp-treemacs lsp-pyright json-mode helm-lsp go-mode flycheck flx-ido expand-region docker-compose-mode company-quickhelp company-dict cmake-mode blacken)))
+   '(rustic protobuf-mode queue nasm-mode ahk-mode ox-pandoc company-prescient sh sh-mode shell-script dap-mode glsl-mode ein clang-format ebib doom-modeline doom-modline doom-themes wrap-region which-key web-mode use-package typescript-mode sml-mode rust-mode rjsx-mode pyvenv python-mode org-roam org-ref move-text magit lua-mode lsp-ui lsp-treemacs lsp-pyright json-mode helm-lsp go-mode flycheck flx-ido expand-region docker-compose-mode company-quickhelp cmake-mode blacken)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

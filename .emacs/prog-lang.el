@@ -6,7 +6,6 @@
   :ensure t
   )
 
-
 ;;;;;;;;;;;;;;
 ;; LSP-MODE ;;
 ;;;;;;;;;;;;;;
@@ -19,6 +18,10 @@
   :bind ("M-." . lsp-find-definition)
   :config
   (setq lsp-disabled-clients '(typescript angular-ls))
+  ;; uncomment for less flashiness
+  ;; (setq lsp-eldoc-hook nil)
+  ;; (setq lsp-enable-symbol-highlighting nil)
+  ;; (setq lsp-signature-auto-activate nil)
   )
 
 (use-package lsp-ui
@@ -36,6 +39,10 @@
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
   )
 
+;; (use-package dap-mode
+;;   :ensure t
+;;   )
+
 ;;;;;;;;;;
 ;; bash ;;
 ;;;;;;;;;;
@@ -48,10 +55,10 @@
 ;; basic ;;
 ;;;;;;;;;;;
 
-(use-package basic-mode
-  :ensure t  
-  :hook (basic-mode . display-line-numbers-mode)
-  )
+;; (use-package basic-mode
+;;   :ensure t  
+;;   :hook (basic-mode . display-line-numbers-mode)
+;;   )
 
 ;;;;;;;;;;;;;;;;
 ;; CPP        ;;
@@ -82,6 +89,11 @@
   :commands c++-mode
   :hook
   (c++-mode . lsp-deferred)
+  ;; :config
+  ;; (require 'dap-node)
+  ;; (require 'dap-lldb)
+  ;; (dap-node-setup)
+  ;; (setq dap-lldb-debug-program '("C:/Program Files/LLVM/bin/lldb-vscode.exe"))
   )
 
 (use-package c
