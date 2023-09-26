@@ -111,6 +111,7 @@ With negative N, comment out original line and use the absolute value."
 (global-set-key "\C-j" 'newline-and-indent)
 (global-set-key "\C-cu" 'comment-or-uncomment-region-or-line)
 (global-set-key [?\C-c ?d] 'duplicate-line-or-region)
+(global-set-key "\M- " 'hippie-expand)
 
 ;;;;;;;;;;;;;;
 ;; PACKAGE  ;;
@@ -135,13 +136,10 @@ With negative N, comment out original line and use the absolute value."
 (setq electric-pair-text-pairs nil)
 (electric-pair-mode 1)
 
-;; show-paren-mode
 (show-paren-mode 1)
 
-;; "undo" (and “redo”) changes in the window configuration with the key commands ‘C-c
 (winner-mode 1)
 
-;; auto-load minor modes
 (global-visual-line-mode 1)
 
 ;; (desktop-save-mode 1)
@@ -153,7 +151,8 @@ With negative N, comment out original line and use the absolute value."
   :init (move-text-default-bindings)
 )
 
-;; HELM
+;;;;;;;;;;;;;;;; HELM
+
 (use-package helm
   :ensure t
   :init
@@ -201,7 +200,8 @@ With negative N, comment out original line and use the absolute value."
 (setq helm-always-two-windows t
       helm-split-window-inside-p t)
 
-;; IDO
+;;;;;;;;;;;;;;;; IDO
+
 ;; (setq ido-everywhere t)
 (setq ido-enable-flex-matching 1)
 (ido-mode t)
@@ -212,14 +212,14 @@ With negative N, comment out original line and use the absolute value."
   :config (setq ido-use-faces nil) ;; disable ido faces to see flx highlights. OR (setq flx-ido-use-faces nil)
 )
 
-;; FLYCHECK
+;;;;;;;;;;;;;;;; minor packages
+
 (use-package flycheck
   :ensure t
   :init
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
   )
 
-;; COMPANY
 (use-package company-quickhelp
   :ensure t
   )
@@ -234,11 +234,6 @@ With negative N, comment out original line and use the absolute value."
   (delete 'company-clang company-backends)
   :bind ("M-/" . company-dabbrev)
   )
-
-;; HIPPIE
-(global-set-key "\M- " 'hippie-expand)
-
-;; EXPAND-REGION
 
 (use-package expand-region
   :ensure t
@@ -280,10 +275,6 @@ With negative N, comment out original line and use the absolute value."
     "List of actions for `aw-dispatch-default'.")
   )
 
-;; (use-package magit
-;;   :ensure t
-;;   )
-
 ;;;;;;;;;;;;;;;;
 ;; PROJECTILE ;;
 ;;;;;;;;;;;;;;;;
@@ -307,4 +298,5 @@ With negative N, comment out original line and use the absolute value."
               ("s-v" . projectile-vc))
   ;; :config (setq projectile-enable-caching nil)
   )
+
 (projectile-mode 1)

@@ -2,21 +2,71 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".emacs"
+((".emacs-org-mode-biblio"
+ (filename . "~/Radovi/Linux/.emacs/org-mode.el")
+ (front-context-string . "(setq bibliograp")
+ (rear-context-string . ";;;;;;;;;;;;;;\n\n")
+ (position . 4297))
+("Scratchpad.org"
+ (filename . "~/Radovi/Org/Wikidev/Scratchpad.org")
+ (front-context-string . "#+TITLE: Scratch")
+ (rear-context-string)
+ (position . 1))
+("Edu.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Edu.org")
+ (front-context-string)
+ (rear-context-string)
+ (position . 1))
+("MIDI.org"
+ (filename . "~/Radovi/Org/Wikidev/MIDI.org")
+ (front-context-string . "#+TITLE: MIDI\n\n#")
+ (rear-context-string)
+ (position . 1))
+("Proj-Leibniz-Biblio"
+ (filename . "~/Radovi/Org/Wikith/Projekti/Racionalizam/Leibniz/Biblio.org")
+ (front-context-string . "#+TITLE: Bibliog")
+ (rear-context-string)
+ (position . 1))
+("Proj-Leibniz"
+ (filename . "~/Radovi/Org/Wikith/Projekti/Racionalizam/Leibniz/Leibniz.org")
+ (front-context-string . "#+TITLE:  Leibni")
+ (rear-context-string)
+ (position . 1))
+("Proj-Leibniz-Lektira"
+ (filename . "~/Radovi/Org/Wikith/Projekti/Racionalizam/LeibnizLogicCalculus/Lektira.org")
+ (front-context-string . "#+TITLE: Lektira")
+ (rear-context-string)
+ (position . 1))
+("proj_management.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Ultraviolet/proj_management.org")
+ (front-context-string . "#+TITLE:  Projec")
+ (rear-context-string)
+ (position . 1))
+("Docker.org"
+ (filename . "~/Radovi/Org/Wikidev/Docker.org")
+ (front-context-string . "dckr_pat_g6hojTj")
+ (rear-context-string . "ml up\n\n* creds\n\n")
+ (position . 399))
+("Kyst.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Gfx/Kyst.org")
+ (front-context-string . "#+TITLE: Kyst\n#+")
+ (rear-context-string)
+ (position . 1))
+("CoCos.AI.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Ultraviolet/CoCos.AI.org")
+ (front-context-string . "#+TITLE: CoCoS.A")
+ (rear-context-string)
+ (position . 1))
+("org-mode.org"
+ (filename . "~/Radovi/Org/Wikith/Resursi/org-mode.org")
+ (front-context-string . "@AristotelKibern")
+ (rear-context-string)
+ (position . 1))
+(".emacs"
  (filename . "~/Radovi/Linux/.emacs/")
  (front-context-string . "  /home/darko/Ra")
  (rear-context-string)
  (position . 1))
-("Meta.org-Projekti"
- (filename . "~/Radovi/Org/Wikith/Projekti/Meta.org")
- (front-context-string . "** @ - Projekti\n")
- (rear-context-string . "LIZA\n_TERAPIJA\n\n")
- (position . 407))
-("Nannou.org"
- (filename . "~/Radovi/Org/Wikidev/Nannou.org")
- (front-context-string)
- (rear-context-string . "+TITLE: Nannou\n\n")
- (position . 18))
 (".emacs-rust"
  (filename . "~/Radovi/Linux/.emacs/prog-lang-ex.el")
  (front-context-string . ";; RUST ;;\n;;;;;")
@@ -57,7 +107,7 @@
  (front-context-string . "#+TITLE: rust\n\n*")
  (rear-context-string)
  (position . 1))
-("Ultraviolet"
+("Ultraviolet-Proj"
  (filename . "~/Radovi/Org/Wikidev/Projects/Ultraviolet/")
  (front-context-string . "Admin.org\n  -rwx")
  (rear-context-string . "08 Oct 30 11:41 ")
@@ -147,7 +197,7 @@
  (front-context-string . "#+TITLE: Project")
  (rear-context-string)
  (position . 1))
-("Projekti-Filo"
+("Proj-Filo"
  (filename . "~/Radovi/Org/Wikith/Projekti/Organizer.org")
  (front-context-string . "* Projekti\n\n- Ar")
  (rear-context-string . ": :filozofija:\n\n")
@@ -172,26 +222,6 @@
  (front-context-string . "* test files\n** ")
  (rear-context-string . "-metadata=.xyz\n\n")
  (position . 6069))
-("Projekti-Leibniz"
- (filename . "~/Radovi/Org/Wikith/Projekti/LeibnizLogicCalculus/LeibnizLogicCalculus.org")
- (front-context-string . "#+TITLE:  Leibni")
- (rear-context-string)
- (position . 1))
-("Projekti-Spinoza"
- (filename . "~/Radovi/Org/Wikith/Projekti/Racionalizam/Spinoza/Spinoza.org")
- (front-context-string . "#+TITLE: Spinoza")
- (rear-context-string)
- (position . 1))
-("Cinder-samples"
- (filename . "~/Documents/Cinder/samples/")
- (front-context-string . "_AllSamples\n  dr")
- (rear-context-string . "  0 03-14 07:59 ")
- (position . 234))
-("Lovr.org"
- (filename . "~/Radovi/Org/Wikidev/Projects/Lovr.org")
- (front-context-string)
- (rear-context-string)
- (position . 16))
 ("algostruct"
  (filename . "~/Development/algostruct/")
  (front-context-string . ".babelrc\n  drwxr")
@@ -207,7 +237,7 @@
  (front-context-string . ":PROPERTIES:\n:ID")
  (rear-context-string)
  (position . 1))
-("Projekti-Dijalektika"
+("Proj-Dijalektika"
  (filename . "~/Radovi/Org/Wikith/Projekti/Dijalektika/Dijalektika.org")
  (front-context-string . "#+TITLE:  Dijale")
  (rear-context-string)
@@ -217,12 +247,7 @@
  (front-context-string . "* mingw64\n\n: cma")
  (rear-context-string . "pp/config-msvc\n\n")
  (position . 10918))
-("Projekti-ProtePhilo"
- (filename . "~/Radovi/Org/Wikith/Projekti/ProtePhilo/ProtePhilo.org")
- (front-context-string . "#+TITLE: Prote p")
- (rear-context-string)
- (position . 1))
-("Projekti-Aristotel"
+("Proj-Aristotel"
  (filename . "~/Radovi/Org/Wikith/Projekti/Aristotel/Aristotel.org")
  (front-context-string . "#+TITLE: Aristot")
  (rear-context-string)
@@ -515,10 +540,10 @@
  (rear-context-string . ";;;;;;;;;;;;;;;\n")
  (position . 10712))
 (".emacs-golang"
- (filename . "~/Radovi/Linux/.emacs/.emacs")
- (front-context-string . "GOLANG ;;\n;;;;;;")
- (rear-context-string . ";;;;;;;;;;;;\n;; ")
- (position . 15019))
+ (filename . "~/Radovi/Linux/.emacs/prog-lang-ex.el")
+ (front-context-string . ";; GOLANG ;;\n;;;")
+ (rear-context-string . ")\n\n;;;;;;;;;;;;\n")
+ (position . 283))
 (".emacs-python"
  (filename . "~/Radovi/Linux/.emacs/.emacs")
  (front-context-string . "PYTHON     ;;\n;;")
@@ -539,7 +564,4 @@
  (front-context-string . "\n\n;;;;;;;;;;;;;;")
  (rear-context-string . "nil :height 108)")
  (position . 1425))
-=======(front-context-string . "\n\n;; turn off ba")
-(rear-context-string . "nil :height 108)")
-(position . 138)
 )

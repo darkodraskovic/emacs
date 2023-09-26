@@ -22,33 +22,25 @@
     ("7bas" "#+BEGIN_SRC basic\n\n#+END_SRC")
     ("7rs" "#+BEGIN_SRC rust\n\n#+END_SRC")
     
-    ("7c" "#+BEGIN_COMMENT\n\n#+END_COMMENT")
-    ("7ct" "#+BEGIN_COMMENT\n- @todo cf.\n#+END_COMMENT")
+    ("7c" "#+begin_comment\n\n#+end_comment")
+    ("7q" "#+begin_quote\n\n#+end_quote")
 
     ("7tit" "#+TITLE: ")
-    ("7tag" "#+FILETAGS: ")
+    ;; set tags that all entries in a file should inherit just as if tags were
+    ;; these defined in a hypothetical level zero that ;; surrounds the entire
+    ;; these file: #+FILETAGS: :Peter:Boss:Secret:
+    ("7tag" "#+FILETAGS: ::")
     ("7aut" "#+AUTHOR: Darko Draskovic")
+
 
     ("4q" "@QUOTE")
     ("4f" "@FORTE")
     ("4i" "@IDEA")
-    ("4p" "@IMPORTANT")
     ("4s" "@SUMMARY")
     ("4c" "@COMMENT")
     ("4b" "@BIBLIO")
-
-    ("4t" "@TODO")
-    ("4d" "@DOING")
     
-    ("4e" "@evernote")
-
-    ("7e" "emphasis mine")
-    ("7a" "cf. Appendices >")
-    ("7i" "[...]")
-
-    ;; PROGRAMMING
-    ("u3log" "#include <Urho3D/IO/Log.h>")
-    ("u3lrl" "~/Radovi/AppDev/Urho3D/projects/luarl/Urho3DPlayer")
+    ("4e" "[...]")
 ))
 
 ;; stop asking whether to save newly added abbrev when quitting emacs

@@ -104,19 +104,19 @@
 ;; LUA-MODE ;;
 ;;;;;;;;;;;;;;
 
-(use-package lua-mode
-  :ensure t
-  :mode "\\.lua$"
-  :interpreter "lua"
-  :hook (lua-mode . lsp-deferred)
-  ;; :init (setq lsp-clients-lua-language-server-install-dir "~/Programs/lua-language-server/")
-  ;; (setq lsp-clients-lua-language-server-install-dir "~/Programs/lua-language-server/bin/Linux/lua-language-server")
-  ;; (setq lsp-clients-lua-language-server-main-location "~/Programs/lua-language-server/main.lua")
-  :config
-  (setq lua-indent-level 4)
-  (setq lua-indent-string-contents t)
-  (setq lua-prefix-key nil)
-  )
+;; (use-package lua-mode
+;;   :ensure t
+;;   :mode "\\.lua$"
+;;   :interpreter "lua"
+;;   :hook (lua-mode . lsp-deferred)
+;;   ;; :init (setq lsp-clients-lua-language-server-install-dir "~/Programs/lua-language-server/")
+;;   ;; (setq lsp-clients-lua-language-server-install-dir "~/Programs/lua-language-server/bin/Linux/lua-language-server")
+;;   ;; (setq lsp-clients-lua-language-server-main-location "~/Programs/lua-language-server/main.lua")
+;;   :config
+;;   (setq lua-indent-level 4)
+;;   (setq lua-indent-string-contents t)
+;;   (setq lua-prefix-key nil)
+;;   )
 
 ;;;;;;;;;
 ;; SML ;;
@@ -159,7 +159,7 @@
   (setq lsp-rust-analyzer-display-closure-return-type-hints t)
   (setq lsp-rust-analyzer-display-parameter-hints nil)
   (setq lsp-rust-analyzer-display-reborrow-hints nil)  
-)
+  )
 
 (defun rk/rustic-mode-hook ()
   ;; so that run C-c C-c C-r works without having to confirm, but don't try to
@@ -169,22 +169,3 @@
   (when buffer-file-name
     (setq-local buffer-save-without-query t))
   (add-hook 'before-save-hook 'lsp-format-buffer nil t))
-
-(use-package dap-mode
-  :ensure
-  :config
-  (dap-ui-mode)
-  (dap-ui-controls-mode 1)
-
-  (require 'dap-lldb)
-  (require 'dap-gdb-lldb)
-  ;; installs .extension/vscode
-  (dap-gdb-lldb-setup)
-  (dap-register-debug-template
-   "Rust::LLDB Run Configuration"
-   (list :type "lldb"
-         :request "launch"
-         :name "LLDB::Run"
-	 :gdbpath "rust-lldb"
-         :target nil
-         :cwd nil)))

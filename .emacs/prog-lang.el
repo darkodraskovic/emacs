@@ -39,10 +39,6 @@
   (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
   )
 
-;; (use-package dap-mode
-;;   :ensure t
-;;   )
-
 ;;;;;;;;;;
 ;; bash ;;
 ;;;;;;;;;;
@@ -50,15 +46,6 @@
 (use-package sh-mode
   :hook (sh-mode . display-line-numbers-mode)
   )
-
-;;;;;;;;;;;
-;; basic ;;
-;;;;;;;;;;;
-
-;; (use-package basic-mode
-;;   :ensure t  
-;;   :hook (basic-mode . display-line-numbers-mode)
-;;   )
 
 ;;;;;;;;;;;;;;;;
 ;; CPP        ;;
@@ -89,11 +76,6 @@
   :commands c++-mode
   :hook
   (c++-mode . lsp-deferred)
-  ;; :config
-  ;; (require 'dap-node)
-  ;; (require 'dap-lldb)
-  ;; (dap-node-setup)
-  ;; (setq dap-lldb-debug-program '("C:/Program Files/LLVM/bin/lldb-vscode.exe"))
   )
 
 (use-package c
@@ -153,5 +135,5 @@
 (use-package lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))  ; or lsp-deferred
+                         (require 'lsp-pyright)
+                         (lsp))))  ; or lsp-deferred
