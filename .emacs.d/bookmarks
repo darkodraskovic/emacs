@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".emacs-org-mode-biblio"
+(("Projects-jobs"
+ (filename . "~/Radovi/Org/Wikidev/Projects/Projects.org")
+ (front-context-string . "* job\n** intervi")
+ (rear-context-string . "3x+1T2021/home\n\n")
+ (position . 7163))
+("Proj-Spinoza"
+ (filename . "~/Radovi/Org/Wikith/Projekti/Racionalizam/Spinoza/Spinoza.org")
+ (front-context-string . "#+TITLE: Spinoza")
+ (rear-context-string)
+ (position . 1))
+(".emacs-org-mode-biblio"
  (filename . "~/Radovi/Linux/.emacs/org-mode.el")
  (front-context-string . "(setq bibliograp")
  (rear-context-string . ";;;;;;;;;;;;;;\n\n")

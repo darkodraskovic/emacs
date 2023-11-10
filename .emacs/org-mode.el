@@ -24,15 +24,13 @@
   (let ((dict-file org-mode-dict))
     (write-region (region-beginning) (region-end) dict-file t)
     (write-region "\n" nil dict-file t)
-    (if current-prefix-arg
-        (let ((buffer-name "org-mode.org"))
-          (find-file dict-file)
-          (set-buffer buffer-name)
-          (sort-lines nil (point-min) (point-max))
-          (delete-duplicate-lines (point-min) (point-max) nil t)
-          (save-buffer buffer-name)
-          ;; (kill-buffer buffer-name)
-          ))
+    (let ((buffer-name "org-mode.org"))
+      (find-file dict-file)    
+      (set-buffer buffer-name)
+      (sort-lines nil (point-min) (point-max))
+      (delete-duplicate-lines (point-min) (point-max) nil t)
+      (save-buffer buffer-name)
+      )
     ))
 
 (defun replace-newline-with-space ()
@@ -50,7 +48,16 @@
       ;; Merge hyphenated words
       (goto-char (point-min))
       (while (re-search-forward "\\([^- \n]\\)- \\([^- \n]\\)" nil t)
-        (replace-match "\\1\\2")))
+        (replace-match "\\1\\2"))
+      (while (re-search-forward "\\([^­ \n]\\)­ \\([^­ \n]\\)" nil t)
+        (replace-match "\\1\\2"))
+
+      ; hack: remove space at the start and move paragraph one line below
+      (goto-char (point-min))
+      (delete-char 1)
+      (insert "\n")
+
+      )
     (widen)))
 
 ;;;;;;;;;;;;;;;; MODES
@@ -99,7 +106,7 @@
   (setq org-cite-global-bibliography bibliographies)
   :config
   (setq company-idle-delay nil)
-  (find-file org-mode-dict)
+  ;; (find-file org-mode-dict)
   :bind
   (("C-c c" . org-capture)
    ("C-c a" . org-agenda)

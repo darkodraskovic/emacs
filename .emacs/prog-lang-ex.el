@@ -89,9 +89,10 @@
   :init   (setq web-mode-engines-alist
                 '(("go"    . "\\.gohtml\\'")))
   :hook (web-mode . lsp-deferred)
-  :config (setq web-mode-markup-indent-offset 2)
+  :config
+  (setq web-mode-markup-indent-offset 2)
   (setq web-mode-enable-current-element-highlight t)
-  (setq nxml-child-indent 4 nxml-attribute-indent 4)
+  (setq nxml-child-indent 2 nxml-attribute-indent 2)
   (setq css-indent-offset 2)
   )
 

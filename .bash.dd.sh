@@ -11,8 +11,9 @@ export EDITOR="emacs -nw -q --load "${EMACS_MIN}
 
 ################ alias
 
+alias l="exa -lh"
 alias ls=exa
-alias emin="emacs -nw -q --load "${EMACS_MIN}
+alias e="emacs -nw -q --load "${EMACS_MIN}
 alias cat=bat
 
 ################ GOLANG
@@ -24,7 +25,7 @@ export PATH=$GOBIN:/usr/local/go/bin:$PATH
 ################ ENV VARS
 
 # used with "machine github.com login <username> password <token>" in /home/darko/.netrc
-export GOPRIVATE=github.com/ultravioletrs/clients,github.com/ultravioletrs/cocos,github.com/ultravioletrs/manager,github.com/ultravioletrs/agent
+export GOPRIVATE=github.com/ultravioletrs/prism,github.com/ultravioletrs/manager,github.com/ultravioletrs/agent
 
 export UV_DIR=~/go/src/github.com/ultravioletrs
 export MF_DIR=~/go/src/github.com/mainflux
@@ -78,3 +79,36 @@ export WASMER_DIR="/home/darko/.wasmer"
 ################ Haskell
 
 [ -f "/home/darko/.ghcup/env" ] && source "/home/darko/.ghcup/env" # ghcup-env
+
+################ brew
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+################ anaconda
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+anaconda_loc="/home/darko/anaconda3"
+__conda_setup="$('/home/darko/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+
+if [ -d "/media/darko/depot/anaconda3" ]; then
+    anaconda_loc="/media/darko/depot/anaconda3"
+    __conda_setup="$('/media/darko/depot/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+fi
+
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$anaconda_loc/etc/profile.d/conda.sh" ]; then
+        . "$anaconda_loc/etc/profile.d/conda.sh"
+    else
+        export PATH="$anaconda_loc/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+conda deactivate
+# <<< conda initialize <<<
+
+################ Rust
+
+. "$HOME/.cargo/env"
