@@ -131,7 +131,8 @@ With negative N, comment out original line and use the absolute value."
 ;; MODES    ;;
 ;;;;;;;;;;;;;;
 
-;; electric-pair
+;;;;;;;;;;;;;;;; electric-pair
+
 (setq electric-pair-pairs nil)
 (setq electric-pair-text-pairs nil)
 (electric-pair-mode 1)
@@ -212,13 +213,15 @@ With negative N, comment out original line and use the absolute value."
   :config (setq ido-use-faces nil) ;; disable ido faces to see flx highlights. OR (setq flx-ido-use-faces nil)
 )
 
-;;;;;;;;;;;;;;;; minor packages
+;;;;;;;;;;;;;;;; flycheck
 
 (use-package flycheck
   :ensure t
   :init
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
   )
+
+;;;;;;;;;;;;;;;; company
 
 (use-package company-quickhelp
   :ensure t
@@ -252,6 +255,8 @@ With negative N, comment out original line and use the absolute value."
 ;; make cursor movement stop in between camelCase words.
 (global-subword-mode 1)
 
+;;;;;;;;;;;;;;;; ace-window
+
 (use-package ace-window
   :ensure t
   :commands ace-window
@@ -275,9 +280,7 @@ With negative N, comment out original line and use the absolute value."
     "List of actions for `aw-dispatch-default'.")
   )
 
-;;;;;;;;;;;;;;;;
-;; PROJECTILE ;;
-;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; projectile
 
 (use-package projectile
   :ensure t

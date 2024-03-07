@@ -20,9 +20,7 @@
   :ensure t
   :init (doom-modeline-mode 1))
 
-;;;;;;;;;;;;;;
-;; TREEMACS ;;
-;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; treemacs
 
 (use-package all-the-icons
   :ensure t
@@ -61,7 +59,7 @@
   :ensure t
   )
 
-;;;;;;;;;;;;;;;; YASNIPPET
+;;;;;;;;;;;;;;;; yasnippet
 
 (use-package yasnippet
   :ensure t
@@ -80,8 +78,8 @@
 (use-package which-key
   :ensure t
   :init
-  (setq which-key-idle-delay 0.5)
-  ;; :config
-  ;; (which-key-mode)
+  (setq which-key-idle-delay 1)
+  :config
+  (which-key-mode)
   )
 
