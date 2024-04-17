@@ -1,8 +1,32 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8 -*-
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8; mode: lisp-data -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Projects-jobs"
+(("QuitSmoking.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/wellness/QuitSmoking.org")
+ (front-context-string . "#+TITLE: Zašto s")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26126 54079 195205 0))
+("harness-core.org"
+ (filename . "~/Radovi/Org/Wikidev/Projects/harness/notes/core.org")
+ (front-context-string . "#+TITLE: Core\n\n*")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26089 58541 291563 0))
+("harness-notes"
+ (filename . "~/Radovi/Org/Wikidev/Projects/harness/notes/")
+ (front-context-string . "  /Users/draskov")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26089 58523 273246 0))
+("harness"
+ (filename . "~/Radovi/Org/Wikidev/Projects/harness/")
+ (front-context-string . "  /Users/draskov")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26089 58507 394244 0))
+("Projects-jobs"
  (filename . "~/Radovi/Org/Wikidev/Projects/Projects.org")
  (front-context-string . "* job\n** intervi")
  (rear-context-string . "3x+1T2021/home\n\n")
